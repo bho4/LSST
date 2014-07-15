@@ -1,0 +1,474 @@
+body {
+    visibility: hidden
+}
+
+.target-viewport-width {
+    width: 1280px;
+}
+
+.table {
+    display: table;
+}
+
+.table-row {
+    display: table-row;
+}
+
+.table-cell {
+    display: table-cell;
+}
+
+.table-margin {
+    border: red dashed 0px;
+}
+
+.stripe-btn {
+    /* Safari 5.1 to 6.0 */
+     background: -webkit-repeating-linear-gradient(
+        45deg,
+        cornflowerblue,
+        cornflowerblue 5px,
+        royalblue 5px,
+        royalblue 10px
+    ) !important;
+    /* Firefox 3.6 to 15 */
+    background: -moz-repeating-linear-gradient(
+        45deg,
+        cornflowerblue,
+        cornflowerblue 5px,
+        royalblue 5px,
+        royalblue 10px
+    ) !important;
+    background: repeating-linear-gradient(
+        45deg,
+        cornflowerblue,
+        cornflowerblue 5px,
+        royalblue 5px,
+        royalblue 10px
+    ) !important;
+    cursor: default !important;
+}
+
+.blue {
+    border: royalblue solid 1px !important;
+    -moz-box-shadow: 2px 2px 5px royalblue !important;
+    -webkit-box-shadow: 2px 2px 5px royalblue !important;
+    box-shadow: 2px 2px 5px royalblue !important;
+}
+
+div#info-div {
+}
+
+div#info-div div.info-title {
+    text-align: center;
+    border: #ccc solid 1px;
+    -moz-box-shadow: 2px 2px 5px #888;
+    -webkit-box-shadow: 2px 2px 5px #888;
+    box-shadow: 2px 2px 5px #888;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+div#info-div div.info-displayer {
+    text-align: center;
+    border: #ccc solid 1px;
+    -moz-box-shadow: 2px 2px 5px #888;
+    -webkit-box-shadow: 2px 2px 5px #888;
+    box-shadow: 2px 2px 5px #888;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+div#info-div div.uniform-margin-top {
+    margin-top: 5px;
+}
+
+div#panner {
+    position: relative;
+    border: #ccc solid 0px;
+}
+
+div#panner div.navcontainer {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    border:none;
+}
+
+div#panner div.navcontainer div.navwin {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    border:none;
+}
+
+div#panner div.navcontainer div.navwin img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+div#panner div.navcontainer div.navwin div.zone {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: #888;
+    border: 2px solid royalblue;
+    cursor: move;
+    z-index: 3;
+    opacity: 0.4;
+}
+
+div#magnifier {
+    position: relative;
+    border: #ccc solid 1px;
+}
+
+div#magnifier canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+div#nav-pan-first-row,
+div#nav-pan-second-row {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+div#nav-pan-first-row div.nav-pan-first-row-button,
+div#nav-pan-second-row div.nav-pan-second-row-button {
+    padding: 3px 0px 3px 0px;
+    text-align: center;
+    cursor: pointer;
+    border: #ccc solid 1px;
+    border-radius: 8px;
+}
+
+div#nav-pan-first-row div.nav-pan-first-row-button:hover,
+div#nav-pan-second-row div.nav-pan-second-row-button:hover {
+    border: #ccc outset 1px;
+}
+
+div#nav-pan-first-row div.nav-pan-first-row-button:active,
+div#nav-pan-second-row div.nav-pan-second-row-button:active {
+    border: #ccc inset 1px;
+}
+
+div#nav-pan-first-row div.nav-pan-first-row-button.selected {
+    color: white;
+    background-color: cornflowerblue;
+    border: cornflowerblue outset 2px;
+}
+
+div#nav-pan-second-row div.nav-pan-second-row-button.selected {
+    color: white;
+    background-color: cornflowerblue;
+    border: cornflowerblue outset 1px;
+}
+
+div#nav-pan-second-row div.nav-pan-second-row-button.not-implemented {
+    color: white;
+    background-color: #ddd;
+    cursor: default;
+    border: #ccc solid 1px !important;
+}
+
+div#left-div {
+    position: relative;
+    border: #ccc solid 1px;
+}
+
+div#left-div iframe#iip-frame {
+    position: absolute;
+    top: 0px;
+    left:0px;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+div#right-div {
+    height: 485px;
+    border: red dashed 0px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+div#image-pixel-histogram {
+    
+}
+
+div#image-pixel-histogram div#histogram-info-div div.histogram-info-title,
+div#image-pixel-histogram div#histogram-info-div div.histogram-info-displayer {
+    padding: 5px 0px 5px 0px;
+    text-align: center;
+    -moz-box-shadow: 2px 2px 5px #888;
+    -webkit-box-shadow: 2px 2px 5px #888;
+    box-shadow: 2px 2px 5px #888;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+div#image-pixel-histogram div#histogram-control-panel {
+}
+
+div#image-pixel-histogram div#histogram-control-panel div.histogram-control-widget {
+    padding: 5px 0px 5px 0px;
+    text-align: center;
+    border: #ccc outset thin;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown,
+div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown {
+    position: relative;
+}
+
+div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown i,
+div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown i {
+    position: absolute;
+    top: 3px;
+    right: 12px;
+    opacity: 0.4;
+}
+
+div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown ul,
+div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown ul {
+    display: none;
+    position: absolute;
+    margin: 1px 0px 1px 0px;
+    padding: inherit;
+    list-style: none;
+}
+
+div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown:hover > ul,
+div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown:hover > ul {
+    display: block;
+}
+
+div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown ul li,
+div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown ul li {
+    padding: inherit;
+    cursor: pointer;
+    background-color: white;
+    border: #ccc outset thin;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown ul li.selected {
+    color: white;
+    background-color: cornflowerblue;
+}
+
+div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown ul li.selected {
+    color: white;
+    background-color: cornflowerblue;
+}
+
+div#image-pixel-histogram div#histogram-control-panel div#histogram-control-zoom-in,
+div#image-pixel-histogram div#histogram-control-panel div#histogram-control-zoom-out,
+div#image-pixel-histogram div#histogram-control-panel div#histogram-control-reset {
+    cursor: pointer;
+}
+
+div#image-pixel-histogram div#histogram-control-panel div#histogram-control-zoom-in:active,
+div#image-pixel-histogram div#histogram-control-panel div#histogram-control-zoom-out:active,
+div#image-pixel-histogram div#histogram-control-panel div#histogram-control-reset:active,
+div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown ul li:active,
+div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown ul li:active {
+    border: #ccc inset thin;
+}
+
+div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown ul li.selected:active {
+    border: #ccc outset thin !important;
+}
+
+div#image-pixel-histogram div#histogram-svg-div {
+    border: #ccc solid thin;
+    -moz-box-shadow: 2px 2px 5px #888;
+    -webkit-box-shadow: 2px 2px 5px #888;
+    box-shadow: 2px 2px 5px #888;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g g.axis path,
+div#image-pixel-histogram div#histogram-svg-div svg g g.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: auto;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g rect {
+    fill: #bbb;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g rect:hover {
+    fill: cornflowerblue;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g text {
+    font-size: small;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g.y.axis text {
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g path.line {
+    fill: none;
+    stroke: red;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g#black-control circle#outer-black-control-point {
+    fill-opacity: 0;
+    stroke-opacity: 0;
+    stroke: red;
+    stroke-width: 2;
+    cursor: pointer;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g#black-control circle#outer-black-control-point:hover {
+    stroke-opacity: 0.5;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g#black-control circle#outer-black-control-point:active {
+    cursor: pointer;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g#black-control circle#inner-black-control-point {
+    pointer-events: none;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g g.x.axis.top path,
+div#image-pixel-histogram div#histogram-svg-div svg g g.y.axis.right path {
+    stroke: red;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g g.x.axis.top g.tick line,
+div#image-pixel-histogram div#histogram-svg-div svg g g.y.axis.right g.tick line {
+    stroke: orangered;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g g.x.axis.top g.tick text,
+div#image-pixel-histogram div#histogram-svg-div svg g g.y.axis.right g.tick text {
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g#white-control circle#outer-white-control-point {
+    fill-opacity: 0;
+    stroke-opacity: 0;
+    stroke: red;
+    stroke-width: 2;
+    cursor: pointer;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g#white-control circle#outer-white-control-point:hover {
+    stroke-opacity: 0.5;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g#white-control circle#outer-white-control-point:active {
+    cursor: pointer;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g#white-control circle#inner-white-control-point {
+    pointer-events: none;
+    fill: white;
+}
+
+div#file-open-div {
+    display: none;
+}
+
+div#file-open-div div#choose-image-on-server,
+div#file-open-div div#upload-image-to-server {
+    padding: 6px 0px 6px 0px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
+    -moz-box-shadow: 2px 2px 5px #888;
+    -webkit-box-shadow: 2px 2px 5px #888;
+    box-shadow: 2px 2px 5px #888;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    font-size: 130%;
+}
+
+div#file-open-div div.image-on-server {
+    text-align: center;
+    font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
+    padding: 5px 3px 5px 3px;
+    border: #ccc outset 1px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+div#file-open-div div.image-on-server:active,
+div#file-open-div div#upload-image-btn:active,
+div#file-open-div div#erase-input-url-btn:active {
+    border: 1px inset #ccc;
+}
+
+div#file-open-div div#erase-input-url-btn.disabled,
+div#file-open-div div#upload-image-btn.disabled {
+    border: 1px solid #ccc;
+    color: white;
+    background-color: #ddd;
+    cursor: default;
+}
+
+div#file-open-div div.image-on-server.selected {
+    color: white;
+    background-color: cornflowerblue;
+}
+
+div#file-open-div div#input-container {
+    padding: 5px 3px 5px 3px;
+    position: relative;
+    border: #ddd inset 1px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+div#file-open-div div#input-container input[name="image-url"] {
+    width: 99%;
+    padding: 5px 3px 5px 3px;
+    margin: 0;
+    border: none;
+}
+
+div#file-open-div div#input-container input[name="image-url"]:focus {
+    outline: none;
+}
+
+div#file-open-div div#upload-image-btn,
+div#file-open-div div#erase-input-url-btn {
+    width: 49.5%;
+    cursor: pointer;
+    text-align: center;
+    border: #ccc outset 1px;
+    padding: 5px 3px 5px 3px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}

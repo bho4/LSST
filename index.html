@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>LSST@UIUC</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+        <link rel="shortcut icon" href="icon/icon.png" sizes="48x48">
+        <link type="text/css" href="css/libs/font-awesome/font-awesome.uncompressed.4.0.3.css" rel="stylesheet">
+        <link type="text/css" href="css/lsst.css" rel="stylesheet">
+    </head>
+    <body class="target-viewport-width">
+        <div class="table target-viewport-width">
+            <div class="table-row">
+                <div id="info-div" class="table-cell" style="width: 70%;">
+                    <div class="table" style="width: 100%;">
+                        <div class="table-row">
+                            <div class="table-cell info-title" style="width: 20%">File</div>
+                            <div class="table-cell table-margin" style="width: 5%;"></div>
+                            <div id="file-name" class="table-cell info-displayer" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    <div class="table uniform-margin-top" style="width: 100%;">
+                        <div class="table-row">
+                            <div class="table-cell info-title" style="width: 20%">Object</div>
+                            <div class="table-cell table-margin" style="width: 5%;"></div>
+                            <div class="table-cell info-displayer" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    <div class="table uniform-margin-top" style="width: 100%;">
+                        <div class="table-row">
+                            <div class="table-cell info-title" style="width: 20%">Value</div>
+                            <div class="table-cell table-margin" style="width: 5%;"></div>
+                            <div id="pixel-value" class="table-cell info-displayer" style="width: 17.5%;"></div>
+                            <div class="table-cell table-margin" style="width: 57.5%;"></div>
+                        </div>
+                    </div>
+                    <div class="table uniform-margin-top" style="width: 100%;">
+                        <div class="table-row">
+                            <div class="table-cell info-title" style="width: 20%">WCS</div>
+                            <div class="table-cell table-margin" style="width: 5%;"></div>
+                            <div class="table-cell info-displayer" style="width: 17.5%;"></div>
+                            <div class="table-cell table-margin" style="width: 5%;"></div>
+                            <div class="table-cell info-displayer" style="width: 17.5%;"></div>
+                            <div class="table-cell table-margin" style="width: 35%;"></div>
+                        </div>
+                    </div>
+                    <div class="table uniform-margin-top" style="width: 100%;">
+                        <div class="table-row">
+                            <div class="table-cell info-title" style="width: 20%">Physical</div>
+                            <div class="table-cell" style="width: 5%; text-align: center;">X</div>
+                            <div class="table-cell info-displayer" style="width: 17.5%;"></div>
+                            <div class="table-cell" style="width: 5%; text-align: center;">Y</div>
+                            <div class="table-cell info-displayer" style="width: 17.5%;"></div>
+                            <div class="table-cell table-margin" style="width: 35%;"></div>
+                        </div>
+                    </div>
+                    <div class="table uniform-margin-top" style="width: 100%;">
+                        <div class="table-row">
+                            <div class="table-cell info-title" style="width: 20%">Image</div>
+                            <div class="table-cell" style="width: 5%; text-align: center;">X</div>
+                            <div class="table-cell info-displayer" style="width: 17.5%;"></div>
+                            <div class="table-cell" style="width: 5%; text-align: center;">Y</div>
+                            <div class="table-cell info-displayer" style="width: 17.5%;"></div>
+                            <div class="table-cell table-margin" style="width: 35%;"></div>
+                        </div>
+                    </div>
+                    <div class="table uniform-margin-top" style="width: 100%;">
+                        <div class="table-row">
+                            <div class="table-cell info-title" style="width: 20%">Frame1</div>
+                            <div class="table-cell" style="width: 5%; text-align: center;">x</div>
+                            <div class="table-cell info-displayer" style="width: 17.5%;"></div>
+                            <div class="table-cell table-margin" style="width: 5%;"></div>
+                            <div class="table-cell info-displayer" style="width: 17.5%;"></div>
+                            <div class="table-cell" style="width: 5%; text-align: center;"></div>
+                            <div class="table-cell table-margin" style="width: 30%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-cell table-margin" style="width: 1%"></div>
+                <div id="panner" class="table-cell" style="width: 14%;"><div class="navcontainer"></div></div>
+                <div class="table-cell table-margin" style="width: 1%"></div>
+                <div id="magnifier" class="table-cell" style="width: 14%;"><canvas></canvas></div>
+            </div>
+        </div>
+        
+        <div class="table target-viewport-width" style="margin-top: 8px;">
+            <div id="nav-pan-first-row" class="table-row"></div>
+        </div>
+        <div class="table target-viewport-width" style="margin-top: 3px;">
+            <div id="nav-pan-second-row" class="table-row"></div>
+        </div>
+        
+        <div class="table target-viewport-width" style="margin-top: 8px;">
+            <div class="table-row">
+                <div id="left-div" class="table-cell" style="width: 49.5%;"></div>
+                <div class="table-cell table-margin" style="width: 1%;"></div>
+                <div id="right-div" class="table-cell" style="width: 49.5%;">
+                    <div id="file-open-div"></div>
+                    <div id="image-pixel-histogram">
+                        <div id="histogram-info-div" class="table" style="width: 100%;">
+                            <div class="table-row">
+                                <div class="table-cell histogram-info-title" style="width: 16.6%;">Pixel Value</div>
+                                <div class="table-cell histogram-info-title" style="width: 16.6%;">Pixel Count</div>
+                                <div class="table-cell histogram-info-title" style="width: 16.6%;">PV - Max</div>
+                                <div class="table-cell histogram-info-title" style="width: 16.6%;">PC - Max</div>
+                                <div class="table-cell histogram-info-title" style="width: 16.6%;">Pixel Value</div>
+                                <div class="table-cell histogram-info-title" style="width: 16.6%;">Brightness</div>
+                            </div>
+                            <div class="table-row">
+                                <div id="info-pv" class="table-cell histogram-info-displayer" style="width: 16.6%;">&nbsp;</div>
+                                <div id="info-pc" class="table-cell histogram-info-displayer" style="width: 16.6%;">&nbsp;</div>
+                                <div id="info-pv-max" class="table-cell histogram-info-displayer" style="width: 16.6%;">&nbsp;</div>
+                                <div id="info-pc-max" class="table-cell histogram-info-displayer" style="width: 16.6%;">&nbsp;</div>
+                                <div id="info-pv-contrast" class="table-cell histogram-info-displayer" style="width: 16.6%;">&nbsp;</div>
+                                <div id="info-brightness" class="table-cell histogram-info-displayer" style="width: 16.6%;">&nbsp;</div>
+                            </div>
+                        </div>
+                        <div id="histogram-control-panel" class="table" style="width: 100%; margin-top: 4px;">
+                            <div class="table-row">
+                                <div id="vertical-axis-scale-dropdown" class="table-cell histogram-control-widget" style="width: 33.2%;">
+                                    <div class="table" style="width: 100%;">
+                                        <div class="table-row">
+                                            <div class="table-cell" style="width: 85%; padding-left: 15px;">Vertical Axis Scale</div>
+                                            <div class="table-cell" style="width: 15%;"><i class="fa fa-sort-asc"></i></div>
+                                        </div>
+                                    </div>
+                                    <ul style="width: 100%;">
+                                        <li>Linear</li>
+                                        <li>Logarithmic</li>
+                                    </ul>
+                                </div>
+                                <div id="histogram-control-zoom-out" class="table-cell histogram-control-widget" style="width: 16.6%;">
+                                    <i class="fa fa-search-minus" style="opacity: 0.8;"></i>
+                                </div>
+                                <div id="histogram-control-zoom-in" class="table-cell histogram-control-widget" style="width: 16.6%;">
+                                    <i class="fa fa-search-plus" style="opacity: 0.8;"></i>
+                                </div>
+                                <div id="contrast-dropdown" class="table-cell histogram-control-widget" style="width: 16.6%;">
+                                    <div class="table" style="width: 100%;">
+                                        <div class="table-row">
+                                            <div class="table-cell" style="width: 90%;">Contrast</div>
+                                            <div class="table-cell" style="width: 10%;"><i class="fa fa-sort-asc"></i></div>
+                                        </div>
+                                    </div>
+                                    <ul style="width: 100%;">
+                                        <li>Linear</li>
+                                        <li>Logarithmic</li>
+                                    </ul>
+                                </div>
+                                <div id="histogram-control-reset" class="table-cell histogram-control-widget" style="width: 16.6%;">Reset</div>
+                            </div>
+                        </div>
+                        <div id="histogram-svg-div" style="width: 100%; margin-top: 4px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/libs/jquery/jquery.js"></script>
+        <script type="text/javascript" src="js/libs/iipmooviewer/mootools-core-1.4.5-full-nocompat.js"></script>
+        <script type="text/javascript" src="js/libs/iipmooviewer/mootools-more-1.4.0.1.js"></script>
+        <script type="text/javascript" src="js/libs/d3/d3.js"></script>
+        <script type="text/javascript" src="js/init.js"></script>
+        <script type="text/javascript" src="js/helper.js"></script>
+        <script type="text/javascript" src="js/nav.pan.js"></script>
+        <script type="text/javascript" src="js/image.pixel.histogram.js"></script>
+        <script type="text/javascript" src="js/linear.contrast.js"></script>
+        <script type="text/javascript" src="js/log.contrast.js"></script>
+        <script type="text/javascript" src="js/file.open.js"></script>
+    </body>
+</html>
