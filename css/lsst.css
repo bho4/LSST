@@ -318,11 +318,12 @@ div#image-pixel-histogram div#histogram-svg-div svg g g.axis line {
 }
 
 div#image-pixel-histogram div#histogram-svg-div svg g rect {
-    fill: #bbb;
+    fill: #CCC;
 }
 
 div#image-pixel-histogram div#histogram-svg-div svg g rect:hover {
-    fill: cornflowerblue;
+    fill: red;
+    opacity: 0.5;
 }
 
 div#image-pixel-histogram div#histogram-svg-div svg g text {
@@ -334,19 +335,19 @@ div#image-pixel-histogram div#histogram-svg-div svg g.y.axis text {
 
 div#image-pixel-histogram div#histogram-svg-div svg g path.line {
     fill: none;
-    stroke: red;
+    stroke: royalblue;
 }
 
 div#image-pixel-histogram div#histogram-svg-div svg g#black-control circle#outer-black-control-point {
     fill-opacity: 0;
     stroke-opacity: 0;
-    stroke: red;
+    stroke: royalblue;
     stroke-width: 2;
     cursor: pointer;
 }
 
 div#image-pixel-histogram div#histogram-svg-div svg g#black-control circle#outer-black-control-point:hover {
-    stroke-opacity: 0.5;
+    stroke-opacity: 0.7;
 }
 
 div#image-pixel-histogram div#histogram-svg-div svg g#black-control circle#outer-black-control-point:active {
@@ -359,12 +360,12 @@ div#image-pixel-histogram div#histogram-svg-div svg g#black-control circle#inner
 
 div#image-pixel-histogram div#histogram-svg-div svg g g.x.axis.top path,
 div#image-pixel-histogram div#histogram-svg-div svg g g.y.axis.right path {
-    stroke: red;
+    stroke: royalblue;
 }
 
 div#image-pixel-histogram div#histogram-svg-div svg g g.x.axis.top g.tick line,
 div#image-pixel-histogram div#histogram-svg-div svg g g.y.axis.right g.tick line {
-    stroke: orangered;
+    stroke: cornflowerblue;
 }
 
 div#image-pixel-histogram div#histogram-svg-div svg g g.x.axis.top g.tick text,
@@ -374,13 +375,13 @@ div#image-pixel-histogram div#histogram-svg-div svg g g.y.axis.right g.tick text
 div#image-pixel-histogram div#histogram-svg-div svg g#white-control circle#outer-white-control-point {
     fill-opacity: 0;
     stroke-opacity: 0;
-    stroke: red;
+    stroke: royalblue;
     stroke-width: 2;
     cursor: pointer;
 }
 
 div#image-pixel-histogram div#histogram-svg-div svg g#white-control circle#outer-white-control-point:hover {
-    stroke-opacity: 0.5;
+    stroke-opacity: 0.7;
 }
 
 div#image-pixel-histogram div#histogram-svg-div svg g#white-control circle#outer-white-control-point:active {
