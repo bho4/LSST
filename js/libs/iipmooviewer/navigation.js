@@ -253,6 +253,11 @@ var Navigation = new Class({
       // Fade out our progress bar and loading animation in a chain
       loadBarContainer.fade('out');
       parent.IIPhistogram.new();
+      // If ZOOM Control Panel is selected, update the ZOOM Control Panel.
+      if (parent.NavPan.is_room_panel_selected()) {
+        parent.NavPan.second_row(5);
+        parent.NavPan.restore_zoom_second_row();
+      }
     }
 
   },

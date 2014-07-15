@@ -251,7 +251,7 @@ var NavPan = {
             }
             
             if (first_row === 6) {
-                /* scale */
+                /* histogram */
                 if ($(this).hasClass("selected")) {
                     $(this).removeClass("selected");
                 } else {
