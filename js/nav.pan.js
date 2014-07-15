@@ -137,7 +137,7 @@ var NavPan = {
             {btn: "release"},
             {btn: "help desk"},
             {btn: "acknowledge"},
-            {btn: "about"}
+            {btn: "about", fnc: "to_github_repo"}
         ]
     ],
     
@@ -265,6 +265,13 @@ var NavPan = {
             
             if (first_row === 7) {
                 IIPhistogram[ NavPan.btns_second_row[first_row][second_row].fnc ]();
+            }
+            
+            if (first_row === 10) {
+                switch (second_row) {
+                    case 6:
+                        window.open("https://github.com/bho4/LSST");
+                }
             }
         });
     },

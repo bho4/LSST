@@ -111,6 +111,7 @@ var IIPhistogram = {
             }
             
             IIPhistogram.prepare_data();
+            IIPhistogram.set_svg_margin();
             IIPhistogram.draw_histogram();
             if (IIPhistogram.contrast >= 0) {
                 IIPhistogram.contrast === 0 ? LinearContrast.reset() : LogContrast.reset();
