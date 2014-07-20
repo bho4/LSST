@@ -6,7 +6,6 @@ var IIPhistogram = {
     verticalaxis: 0,
     varicalaxisscales: ["Linear", "Logarithmic"],
     contrast: -1,
-    contrastmodes: [function() { LinearContrast.new(); }, function() { LogContrast.new(); }],
     margins: [{top: 12, right: 10, bottom: 28, left: 8}, {top: 28, right: 40, bottom: 28, left: 60}],
     width: null,
     height: null,
@@ -49,8 +48,7 @@ var IIPhistogram = {
             $(this).addClass("selected");
             $(this).addClass("stripe-btn");
             IIPhistogram.draw_histogram();
-            if (IIPhistogram.contrast >= 0)
-                IIPhistogram.contrastmodes[IIPhistogram.contrast]();
+            IIPhistogram.invoke_contrast();
         });
         // Contrast Control Callback
         $("#" + this.controlpanelid + " #contrast-dropdown ul li").click(function() {
@@ -74,8 +72,7 @@ var IIPhistogram = {
             
             IIPhistogram.set_svg_margin();
             IIPhistogram.draw_histogram();
-            if (IIPhistogram.contrast >= 0)
-                IIPhistogram.contrastmodes[IIPhistogram.contrast]();
+            IIPhistogram.invoke_contrast();
         });
         // Zoom Out Callback
         $("#" + this.controlpanelid + " #histogram-control-zoom-out").click(function() {
@@ -84,9 +81,7 @@ var IIPhistogram = {
                 IIPhistogram.prepare_data();
                 IIPhistogram.set_svg_margin();
                 IIPhistogram.draw_histogram();
-                if (IIPhistogram.contrast >= 0) {
-                    IIPhistogram.contrastmodes[IIPhistogram.contrast]();
-                }
+                IIPhistogram.invoke_contrast();
             }
         });
         // Zoom In Callback
@@ -96,9 +91,7 @@ var IIPhistogram = {
                 IIPhistogram.prepare_data();
                 IIPhistogram.set_svg_margin();
                 IIPhistogram.draw_histogram();
-                if (IIPhistogram.contrast >= 0) {
-                    IIPhistogram.contrastmodes[IIPhistogram.contrast]();
-                }
+                IIPhistogram.invoke_contrast();
             }
         });
         // Reset Callback
@@ -119,10 +112,8 @@ var IIPhistogram = {
             IIPhistogram.prepare_data();
             IIPhistogram.set_svg_margin();
             IIPhistogram.draw_histogram();
-            if (IIPhistogram.contrast >= 0) {
-                IIPhistogram.contrast === 0 ? LinearContrast.reset() : LogContrast.reset();
-                IIPhistogram.contrastmodes[IIPhistogram.contrast]();
-            }
+            IIPhistogram.reset_contrast();
+            IIPhistogram.invoke_contrast();
          });
          
         // Toggle - & + embedded in the viewer
@@ -143,9 +134,7 @@ var IIPhistogram = {
         this.prepare_data();
         this.set_svg_margin();
         this.draw_histogram();
-        if (this.contrast >= 0) {
-            this.contrastmodes[this.contrast]();
-        }
+        this.invoke_contrast();
     },
     
     prepare_data: function() {
@@ -290,6 +279,32 @@ var IIPhistogram = {
                 .attr("transform", "translate(" + width + "," + 0 + ")" )
                 .attr("class", "y axis right")
                 .call(yAxis);
+        }
+    },
+    
+    invoke_contrast: function() {
+        switch (this.contrast) {
+            case 0:
+                LinearContrast.new();
+                break;
+            case 1:
+                LogContrast.new();
+                break;
+            default:
+                return;
+        }
+    },
+    
+    reset_contrast: function() {
+        switch (this.contrast) {
+            case 0:
+                LinearContrast.reset();
+                break;
+            case 1:
+                LogContrast.reset();
+                break;
+            default:
+                return;
         }
     },
     
