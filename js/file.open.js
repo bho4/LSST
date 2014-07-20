@@ -129,5 +129,17 @@ var FileOpen = {
     
     is_url: function(url) {
         return url !== "";
+    },
+    
+    is_visible: function() {
+        return $("#right-div #file-open-div").css("display") !== "none";
+    },
+    
+    show: function() {
+        $("#right-div #file-open-div").fadeIn(1000);
+    },
+    
+    hide: function() {
+        $("#right-div #file-open-div").hide();
     }
 };

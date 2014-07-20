@@ -3,6 +3,7 @@ var NavPan = {
     second_row_id: "nav-pan-second-row",
     first_row_button_class: "nav-pan-first-row-button",
     second_row_button_class: "nav-pan-second-row-button",
+    
     btns_first_row:
     [
         {btn: "file", res: "restore_file_second_row"},
@@ -17,127 +18,128 @@ var NavPan = {
         {btn: "wcs"},
         {btn: "help"}
     ],
+    
     btns_second_row:
     [
         [
-            {btn: "open", fnc: "html"},
-            {btn: "save"},
-            {btn: "header"},
-            {btn: "page setup"},
-            {btn: "print"},
-            {btn: "exit"}
+            {btn: "open", implemented: true},
+            {btn: "save", implemented: false},
+            {btn: "header", implemented: false},
+            {btn: "page setup", implemented: false},
+            {btn: "print", implemented: false},
+            {btn: "exit", implemented: false}
         ],
         [
-            {btn: "none"},
-            {btn: "pointer"},
-            {btn: "crosshair"},
-            {btn: "colorbar"},
-            {btn: "pan"},
-            {btn: "zoom"},
-            {btn: "rotate"},
-            {btn: "crop"},
-            {btn: "catalog"},
-            {btn: "examine"}
+            {btn: "none", implemented: false},
+            {btn: "pointer", implemented: false},
+            {btn: "crosshair", implemented: false},
+            {btn: "colorbar", implemented: false},
+            {btn: "pan", implemented: false},
+            {btn: "zoom", implemented: false},
+            {btn: "rotate", implemented: false},
+            {btn: "crop", implemented: false},
+            {btn: "catalog", implemented: false},
+            {btn: "examine", implemented: false}
         ],
         [
-            {btn: "information"},
-            {btn: "panner"},
-            {btn: "magnifier"},
-            {btn: "buttons"},
-            {btn: "colorbar"},
-            {btn: "graph horz"},
-            {btn: "graph vert"}
+            {btn: "information", implemented: false},
+            {btn: "panner", implemented: false},
+            {btn: "magnifier", implemented: false},
+            {btn: "buttons", implemented: false},
+            {btn: "colorbar", implemented: false},
+            {btn: "graph horz", implemented: false},
+            {btn: "graph vert", implemented: false}
         ],
         [
-            {btn: "new"},
-            {btn: "new rgb"},
-            {btn: "new 3d"},
-            {btn: "delete"},
-            {btn: "clear"},
-            {btn: "single"},
-            {btn: "tile"},
-            {btn: "blink"},
-            {btn: "first"},
-            {btn: "previous"},
-            {btn: "next"},
-            {btn: "last"}
+            {btn: "new", implemented: false},
+            {btn: "new rgb", implemented: false},
+            {btn: "new 3d", implemented: false},
+            {btn: "delete", implemented: false},
+            {btn: "clear", implemented: false},
+            {btn: "single", implemented: false},
+            {btn: "tile", implemented: false},
+            {btn: "blink", implemented: false},
+            {btn: "first", implemented: false},
+            {btn: "previous", implemented: false},
+            {btn: "next", implemented: false},
+            {btn: "last", implemented: false}
         ],
         [
-            {btn: "-"},
-            {btn: "+"},
-            {btn: "to fit"},
-            {btn: "block 1"},
-            {btn: "block 2"},
-            {btn: "block 4"},
-            {btn: "block 8"},
-            {btn: "block 16"},
-            {btn: "block 32"},
-            {btn: "block 64"}
+            {btn: "-", implemented: false},
+            {btn: "+", implemented: false},
+            {btn: "to fit", implemented: false},
+            {btn: "block 1", implemented: false},
+            {btn: "block 2", implemented: false},
+            {btn: "block 4", implemented: false},
+            {btn: "block 8", implemented: false},
+            {btn: "block 16", implemented: false},
+            {btn: "block 32", implemented: false},
+            {btn: "block 64", implemented: false}
         ],
         [
-            {btn: "-", fnc: "iip_zoom_out"},
-            {btn: "+", fnc: "iip_zoom_in"},
-            {btn: "to fit"},
-            {btn: "zoom 1/8"},
-            {btn: "zoom 1/4"},
-            {btn: "zoom 1/2"},
-            {btn: "zoom 1"},
-            {btn: "zoom 2"},
-            {btn: "zoom 4"},
-            {btn: "zoom 8"}
+            {btn: "-", implemented: true},
+            {btn: "+", implemented: true},
+            {btn: "to fit", implemented: false},
+            {btn: "zoom 1/8", implemented: "dynamically decided"},
+            {btn: "zoom 1/4", implemented: "dynamically decided"},
+            {btn: "zoom 1/2", implemented: "dynamically decided"},
+            {btn: "zoom 1", implemented: "dynamically decided"},
+            {btn: "zoom 2", implemented: "dynamically decided"},
+            {btn: "zoom 4", implemented: "dynamically decided"},
+            {btn: "zoom 8", implemented: "dynamically decided"}
         ],
         [
-            {btn: "linear", fnc: "nav_pan_contrast_btns"},
-            {btn: "log", fnc: "nav_pan_contrast_btns"},
-            {btn: "power"},
-            {btn: "square root"},
-            {btn: "squared"},
-            {btn: "asinh"},
-            {btn: "sinh"},
-            {btn: "min max"},
-            {btn: "zscale"}
+            {btn: "linear", implemented: true},
+            {btn: "log", implemented: true},
+            {btn: "power", implemented: false},
+            {btn: "square root", implemented: false},
+            {btn: "squared", implemented: false},
+            {btn: "asinh", implemented: false},
+            {btn: "sinh", implemented: false},
+            {btn: "min max", implemented: false},
+            {btn: "zscale", implemented: false}
         ],
         [
-            {btn: "grey"},
-            {btn: "a"},
-            {btn: "b"},
-            {btn: "bb"},
-            {btn: "he"},
-            {btn: "i8"},
-            {btn: "aips0"},
-            {btn: "heat"},
-            {btn: "cool"},
-            {btn: "rainbow"},
-            {btn: "invert map", fnc: "invert_color_map"}
+            {btn: "grey", implemented: false},
+            {btn: "a", implemented: false},
+            {btn: "b", implemented: false},
+            {btn: "bb", implemented: false},
+            {btn: "he", implemented: false},
+            {btn: "i8", implemented: false},
+            {btn: "aips0", implemented: false},
+            {btn: "heat", implemented: false},
+            {btn: "cool", implemented: false},
+            {btn: "rainbow", implemented: false},
+            {btn: "invert map", implemented: true}
         ],
         [
-            {btn: "information"},
-            {btn: "front"},
-            {btn: "back"},
-            {btn: "all"},
-            {btn: "none"},
-            {btn: "delete"},
-            {btn: "list"},
-            {btn: "load"},
-            {btn: "save"}
+            {btn: "information", implemented: false},
+            {btn: "front", implemented: false},
+            {btn: "back", implemented: false},
+            {btn: "all", implemented: false},
+            {btn: "none", implemented: false},
+            {btn: "delete", implemented: false},
+            {btn: "list", implemented: false},
+            {btn: "load", implemented: false},
+            {btn: "save", implemented: false}
         ],
         [
-            {btn: "fk4"},
-            {btn: "fk5"},
-            {btn: "icrs"},
-            {btn: "galactic"},
-            {btn: "ecliptic"},
-            {btn: "degrees"},
-            {btn: "sexagesimal"}
+            {btn: "fk4", implemented: false},
+            {btn: "fk5", implemented: false},
+            {btn: "icrs", implemented: false},
+            {btn: "galactic", implemented: false},
+            {btn: "ecliptic", implemented: false},
+            {btn: "degrees", implemented: false},
+            {btn: "sexagesimal", implemented: false}
         ],
         [
-            {btn: "reference"},
-            {btn: "user"},
-            {btn: "keyboard"},
-            {btn: "release"},
-            {btn: "help desk"},
-            {btn: "acknowledge"},
-            {btn: "about", fnc: "to_github_repo"}
+            {btn: "reference", implemented: false},
+            {btn: "user", implemented: false},
+            {btn: "keyboard", implemented: false},
+            {btn: "release", implemented: false},
+            {btn: "help desk", implemented: false},
+            {btn: "acknowledge", implemented: false},
+            {btn: "about", implemented: true}
         ]
     ],
     
@@ -168,34 +170,8 @@ var NavPan = {
         for (var i = 0; i < this.btns_first_row.length; i++) {
             HTML += "<div class=\"table-cell " + this.first_row_button_class + "\" style=\"width: " + ratios[i] * 100 + "%;\">" + this.btns_first_row[i].btn + "</div>";
         }
-        document.getElementById(this.first_row_id).innerHTML = HTML;
+        $("#" + this.first_row_id).html(HTML);
         this.first_row_callback();
-    },
-    
-    second_row: function(type) {
-        var HTML = "";
-        var btns = this.btns_second_row[type];
-        if (type === 5) {
-            /* zoom */
-            for (var i = 0; i < IIPV.num_resolutions; i++) {
-                btns[i+3].fnc = "" + i;
-            }
-            for (var i = IIPV.num_resolutions; i < 7; i++) {
-                btns[i+3].fnc = null;
-            }
-        }
-        var ratios = this.ratios(btns);
-        var btnHTML;
-        for (var i = 0; i < btns.length; i++) {
-            if (btns[i].fnc === undefined || btns[i].fnc === null) {
-                btnHTML = "<div class=\"table-cell not-implemented " + this.second_row_button_class + "\" style=\"width: " + ratios[i] * 100 + "%;\" name=\"" + btns[i].btn.replace(/\s+/g, '') + "-second-row-nav-btn\">" + btns[i].btn + "</div>";
-            } else {
-                btnHTML = "<div class=\"table-cell " + this.second_row_button_class + "\" style=\"width: " + ratios[i] * 100 + "%;\" name=\"" + btns[i].btn.replace(/\s+/g, '') + "-second-row-nav-btn\">" + btns[i].btn + "</div>";
-            }
-            HTML += btnHTML;
-        }
-        document.getElementById(this.second_row_id).innerHTML = HTML;
-        this.second_row_callback();
     },
     
     first_row_callback: function() {
@@ -203,17 +179,43 @@ var NavPan = {
             if ( $(this).hasClass("selected") ) {
                 return;
             }
-            $("." + NavPan.first_row_button_class).removeClass("selected");
-            $("." + NavPan.first_row_button_class).removeClass("stripe-btn");
-            $(this).addClass("selected");
-            $(this).addClass("stripe-btn");
-            var type = $("." + NavPan.first_row_button_class).index(this);
-            NavPan.second_row(type);
-            if ( NavPan.btns_first_row[type].hasOwnProperty("res") ) {
-                //window[ NavPan.btns_first_row[type].res ]();
-                NavPan[ NavPan.btns_first_row[type].res ]();
+            
+            var idx = $("." + NavPan.first_row_button_class).index(this);
+            NavPan.deselect_first_row_buttons();
+            NavPan.select_first_row_button(idx);
+            NavPan.second_row(idx);
+            if ( NavPan.btns_first_row[idx].hasOwnProperty("res") ) {
+                NavPan[ NavPan.btns_first_row[idx].res ]();
             }
         });
+    },
+    
+    second_row: function(type) {
+        var HTML = "";
+        var btns = this.btns_second_row[type];
+        
+        if (type === 5) {
+            /* zoom */
+            for (var i = 0; i < IIPV.num_resolutions; i++) {
+                btns[i+3].implemented = true;
+            }
+            for (var i = IIPV.num_resolutions; i < 7; i++) {
+                btns[i+3].implemented = false;
+            }
+        }
+        
+        var ratios = this.ratios(btns);
+        var btnHTML;
+        for (var i = 0; i < btns.length; i++) {
+            if (btns[i].implemented) {
+                btnHTML = "<div class=\"table-cell " + this.second_row_button_class + "\" style=\"width: " + ratios[i] * 100 + "%;\" name=\"" + btns[i].btn.replace(/\s+/g, '') + "-second-row-nav-btn\">" + btns[i].btn + "</div>";
+            } else {
+                btnHTML = "<div class=\"table-cell not-implemented " + this.second_row_button_class + "\" style=\"width: " + ratios[i] * 100 + "%;\" name=\"" + btns[i].btn.replace(/\s+/g, '') + "-second-row-nav-btn\">" + btns[i].btn + "</div>";
+            }
+            HTML += btnHTML;
+        }
+        $("#" + this.second_row_id).html(HTML);
+        this.second_row_callback();
     },
     
     second_row_callback: function() {
@@ -221,94 +223,115 @@ var NavPan = {
             if ($(this).hasClass("not-implemented")) {
                 return;
             }
+            
             var first_row = $("." + NavPan.first_row_button_class).index( $("." + NavPan.first_row_button_class + ".selected") );
             var second_row = $("." + NavPan.second_row_button_class).index(this);
             
-            if (first_row === 0) {
-                /* file */
-                $("#right-div #image-pixel-histogram").hide(0, function() {
-                    $($("." + NavPan.second_row_button_class)[0]).addClass("selected");
-                    $($("." + NavPan.second_row_button_class)[0]).addClass("stripe-btn");
-                    FileOpen[ NavPan.btns_second_row[first_row][second_row].fnc ]();
-                    $("#right-div #file-open-div").fadeIn(1000);
-                });
-            }
-            
-            if (first_row === 5) {
-                switch (second_row) {
-                    case 0:
-                        IIPV.zoomOut();
-                        break;
-                    case 1:
-                        IIPV.zoomIn();
-                        break;
-                    case 2:
-                        break;
-                    default:
-                        IIPV.zoomTo(second_row - 3);
-                }
-                NavPan.restore_zoom_second_row();
-            }
-            
-            if (first_row === 6) {
-                /* histogram */
-                if ($(this).hasClass("selected")) {
-                    $(this).removeClass("selected");
-                } else {
-                    var btns = $("." + this.second_row_button_class);
-                    $(btns[0]).removeClass("selected");
-                    $(btns[1]).removeClass("selected");
-                    $(this).addClass("selected");
-                }
-                IIPhistogram[ NavPan.btns_second_row[first_row][second_row].fnc ](second_row);
-            }
-            
-            if (first_row === 7) {
-                IIPhistogram[ NavPan.btns_second_row[first_row][second_row].fnc ]();
-            }
-            
-            if (first_row === 10) {
-                switch (second_row) {
-                    case 6:
-                        window.open("https://github.com/bho4/LSST");
-                }
+            switch (first_row) {
+                case 0:
+                    /* file */
+                    NavPan.select_second_row__button(0);
+                    FileOpen.html();
+                    IIPhistogram.hide();
+                    FileOpen.show();
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    /* zoom */
+                    switch (second_row) {
+                        case 0:
+                            IIPV.zoomOut();
+                            break;
+                        case 1:
+                            IIPV.zoomIn();
+                            break;
+                        case 2:
+                            break;
+                        default:
+                            IIPV.zoomTo(second_row - 3);
+                    }
+                    
+                    NavPan.restore_zoom_second_row();
+                    break;
+                case 6:
+                    /* histogram */
+                    IIPhistogram.trigger_contrast(second_row);
+                    break;
+                case 7:
+                    /* color */
+                    IIPhistogram.invert_color_map();
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    break;
+                case 10:
+                    window.open("https://github.com/bho4/LSST");
+                    break;
+                default:
+                    break;
             }
         });
     },
     
     restore_file_second_row: function() {
-        if ($("#right-div #file-open-div").css("display") !== "none") {
-            $($("." + NavPan.second_row_button_class)[0]).addClass("selected");
-            $($("." + NavPan.second_row_button_class)[0]).addClass("stripe-btn");
-        }
-    },
-    
-    restore_histogram_second_row: function() {
-        if ($("#right-div #file-open-div").css("display") !== "none" || $("#image-pixel-histogram").css("display") === "none") {
-            $("#right-div #file-open-div").hide(0, function() {
-                $("#image-pixel-histogram").fadeIn(1000);
-            });
-        }
-        
-        var btns = $("." + this.second_row_button_class);
-        $(btns[0]).removeClass("selected");
-        $(btns[1]).removeClass("selected");
-        var contrast = $("#" + IIPhistogram.controlpanelid + " #contrast-dropdown ul li").hasClass("selected");
-        if (contrast) {
-            idx = $("#" + IIPhistogram.controlpanelid + " #contrast-dropdown ul li").index( $("#" + IIPhistogram.controlpanelid + " #contrast-dropdown ul li.selected") );
-            $($("." + this.second_row_button_class)[idx]).addClass("selected");
+        if (FileOpen.is_visible()) {
+            NavPan.select_second_row__button(0);
         }
     },
     
     restore_zoom_second_row: function() {
-        $("." + NavPan.second_row_button_class).removeClass("selected");
-        $("." + NavPan.second_row_button_class).removeClass("stripe-btn");
-        var i = IIPV.view.res;
-        $($("." + NavPan.second_row_button_class)[i+3]).addClass("selected");
-        $($("." + NavPan.second_row_button_class)[i+3]).addClass("stripe-btn");
+        this.deselect_second_row_buttons();
+        this.select_second_row__button(IIPV.view.res + 3);
+    },
+    
+    restore_histogram_second_row: function() {
+        if (!IIPhistogram.is_visible()) {
+            FileOpen.hide();
+            IIPhistogram.show();
+        }
+        
+        if (IIPhistogram.contrast >= 0) {
+            this.toggle_second_row_button(IIPhistogram.contrast);
+        }
+    },
+    
+    is_histogram_panel_selected: function() {
+        return $("." + this.first_row_button_class).index( $("." + this.first_row_button_class + ".selected") ) === 6;
     },
     
     is_room_panel_selected: function() {
         return $("." + this.first_row_button_class).index( $("." + this.first_row_button_class + ".selected") ) === 5;
+    },
+    
+    deselect_first_row_buttons: function() {
+        $("." + NavPan.first_row_button_class).removeClass("selected");
+        $("." + NavPan.first_row_button_class).removeClass("stripe-btn");
+    },
+    
+    deselect_second_row_buttons: function() {
+        $("." + NavPan.second_row_button_class).removeClass("selected");
+        $("." + NavPan.second_row_button_class).removeClass("stripe-btn");
+    },
+    
+    select_first_row_button: function(idx) {
+        $($("." + NavPan.first_row_button_class)[idx]).addClass("selected");
+        $($("." + NavPan.first_row_button_class)[idx]).addClass("stripe-btn");
+    },
+    
+    select_second_row__button: function(idx) {
+        $($("." + NavPan.second_row_button_class)[idx]).addClass("selected");
+        $($("." + NavPan.second_row_button_class)[idx]).addClass("stripe-btn");
+    },
+    
+    toggle_second_row_button: function(idx) {
+        $($("." + NavPan.second_row_button_class)[idx]).toggleClass("selected");
     }
 };

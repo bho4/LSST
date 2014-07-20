@@ -3,7 +3,7 @@ body {
 }
 
 .target-viewport-width {
-    width: 1280px;
+    width: 1245px;
 }
 
 .table {
@@ -200,7 +200,7 @@ div#left-div iframe#iip-frame {
 }
 
 div#right-div {
-    height: 485px;
+    height: 455px;
     border: red dashed 0px;
     -webkit-user-select: none;
     -moz-user-select: none;

@@ -65,7 +65,13 @@ var IIPhistogram = {
                IIPhistogram.contrast = $("#" + IIPhistogram.controlpanelid + " #contrast-dropdown ul li").index(this);
                $(this).addClass("selected");
             }
-            NavPan.restore_histogram_second_row();
+            
+            // Control Panel buttons
+            if (NavPan.is_histogram_panel_selected()) {
+                NavPan.deselect_second_row_buttons();
+                NavPan.toggle_second_row_button(IIPhistogram.contrast);
+            }
+            
             IIPhistogram.set_svg_margin();
             IIPhistogram.draw_histogram();
             if (IIPhistogram.contrast >= 0)
@@ -295,10 +301,6 @@ var IIPhistogram = {
     reset_contrast_display: function() {
         $("#" + this.infodivid + " #info-pv-contrast").text("");
         $("#" + this.infodivid + " #info-brightness").text("");
-    },
-    
-    nav_pan_contrast_btns: function(mode) {
-        $( $("#" + this.controlpanelid + " #contrast-dropdown ul li")[mode] ).trigger("click");
     },
     
     invert_color_map: function() {
@@ -556,5 +558,21 @@ var IIPhistogram = {
         ctx.scale(w / num, h / num);
         ctx.drawImage(canvas, 0, 0);
         ctx.scale(num / w, num / h); 
+    },
+    
+    is_visible: function() {
+        return $("#image-pixel-histogram").css("display") !== "none";
+    },
+    
+    show: function() {
+        $("#right-div #image-pixel-histogram").fadeIn(1000);
+    },
+    
+    hide: function() {
+        $("#right-div #image-pixel-histogram").hide();
+    },
+    
+    trigger_contrast: function(type) {
+        $( $("#" + this.controlpanelid + " #contrast-dropdown ul li")[type] ).trigger("click");
     }
 };
