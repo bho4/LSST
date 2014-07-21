@@ -1,9 +1,10 @@
 body {
     visibility: hidden;
+    font-size: 85%;
 }
 
 .target-viewport-width {
-    width: 1245px;
+    width: 1145px;
 }
 
 .table {
@@ -204,7 +205,7 @@ div#left-div iframe#iip-frame {
 }
 
 div#right-div {
-    height: 455px;
+    height: 425px;
     border: red dashed 0px;
     -webkit-user-select: none;
     -moz-user-select: none;
