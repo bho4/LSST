@@ -187,6 +187,20 @@ var Navigation = new Class({
       });
       //loadBarContainer.inject(this.navcontainer);
       loadBarContainer.inject( document.id("viewer") );
+      
+      // Create our contrast progress bar
+      var contrastLoadBarContainer = new Element('div', {
+	'class': 'contrastLoadBarContainer',
+        'html': '<div class="loadBar"></div>',
+        'styles': { width: this.options.loadBarWidth, left: this.options.loadBarWidth, top: $("div#viewer").height() / 2 - 8 },
+        'tween': {
+            duration: 500,
+            transition: Fx.Transitions.Sine.easeOut,
+            link: 'cancel'
+        }
+      });
+      //loadBarContainer.inject(this.navcontainer);
+      contrastLoadBarContainer.inject( document.id("viewer") );
     }
 
 

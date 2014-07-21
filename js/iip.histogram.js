@@ -4,14 +4,17 @@ var IIPhistogram = {
     svgid: "histogram-svg-div",
     shiftForMaxPV: 0,
     verticalaxis: 0,
-    varicalaxisscales: ["Linear", "Logarithmic"],
     contrast: -1,
-    margins: [{top: 12, right: 10, bottom: 28, left: 8}, {top: 28, right: 40, bottom: 28, left: 60}],
+    margins: [{top: 28, right: 25, bottom: 35, left: 18}, {top: 35, right: 40, bottom: 35, left: 60}],
     width: null,
     height: null,
     max: null,
     margin: null,
     curview: null,
+    
+    select_vertical_axis_scale_button: function() {
+        
+    },
     
     init: function() {
         // Set the size of SVG container
@@ -52,7 +55,15 @@ var IIPhistogram = {
         });
         // Contrast Control Callback
         $("#" + this.controlpanelid + " #contrast-dropdown ul li").click(function() {
-            if ($(this).hasClass("selected")) {
+            var idx = $("#" + IIPhistogram.controlpanelid + " #contrast-dropdown ul li").index(this);
+            if (idx === 2) {
+                /* Invert */
+                IIPhistogram.invert_color_map();
+                return;
+            } else if (idx === 3) {
+                /* Reset */
+                IIPhistogram.reset_contrast();
+            } else if ($(this).hasClass("selected")) {
                $(this).removeClass("selected");
                IIPhistogram.contrast = -1;
                // Clear contrast canvas
@@ -74,47 +85,40 @@ var IIPhistogram = {
             IIPhistogram.draw_histogram();
             IIPhistogram.invoke_contrast();
         });
-        // Zoom Out Callback
-        $("#" + this.controlpanelid + " #histogram-control-zoom-out").click(function() {
-            if (IIPhistogram.shiftForMaxPV > 0) {
-                IIPhistogram.shiftForMaxPV--;
-                IIPhistogram.prepare_data();
-                IIPhistogram.set_svg_margin();
-                IIPhistogram.draw_histogram();
-                IIPhistogram.invoke_contrast();
+        // PC - Max Control Callback
+        $("#" + this.controlpanelid + " #pcmax-dropdown ul li").click(function() {
+            var idx = $("#" + IIPhistogram.controlpanelid + " #pcmax-dropdown ul li").index(this);
+            switch (idx) {
+                case 0:
+                    /* Zoom Out */
+                    if (IIPhistogram.shiftForMaxPV > 0) {
+                        IIPhistogram.shiftForMaxPV--;
+                        IIPhistogram.prepare_data();
+                        IIPhistogram.set_svg_margin();
+                        IIPhistogram.draw_histogram();
+                        IIPhistogram.invoke_contrast();
+                    }
+                    break;
+                case 2:
+                    /* Zoom In */
+                    if (IIPhistogram.shiftForMaxPV < 50) {
+                        IIPhistogram.shiftForMaxPV++;
+                        IIPhistogram.prepare_data();
+                        IIPhistogram.set_svg_margin();
+                        IIPhistogram.draw_histogram();
+                        IIPhistogram.invoke_contrast();
+                    }
+                    break;
+                default:
+                    /* Reset */
+                    IIPhistogram.shiftForMaxPV = 0;
+                    IIPhistogram.prepare_data();
+                    IIPhistogram.set_svg_margin();
+                    IIPhistogram.draw_histogram();
+                    IIPhistogram.invoke_contrast();
+                    break;
             }
         });
-        // Zoom In Callback
-        $("#" + this.controlpanelid + " #histogram-control-zoom-in").click(function() {
-            if (IIPhistogram.shiftForMaxPV < 50) {
-                IIPhistogram.shiftForMaxPV++;
-                IIPhistogram.prepare_data();
-                IIPhistogram.set_svg_margin();
-                IIPhistogram.draw_histogram();
-                IIPhistogram.invoke_contrast();
-            }
-        });
-        // Reset Callback
-        $("#" + this.controlpanelid + " #histogram-control-reset").click(function() {
-            IIPhistogram.shiftForMaxPV = 0;
-            if (IIPhistogram.contrast === 0) {
-                LinearContrast.blackValue = 0;
-                LinearContrast.blackIntensity = 0;
-                LinearContrast.whiteValue = 255;
-                LinearContrast.whiteIntensity = 255;
-            } else if (IIPhistogram.contrast === 1) {
-                LogContrast.blackValue = 0;
-                LogContrast.blackIntensity = 0;
-                LogContrast.whiteValue = 255;
-                LogContrast.whiteIntensity = 255;
-            }
-            
-            IIPhistogram.prepare_data();
-            IIPhistogram.set_svg_margin();
-            IIPhistogram.draw_histogram();
-            IIPhistogram.reset_contrast();
-            IIPhistogram.invoke_contrast();
-         });
          
         // Toggle - & + embedded in the viewer
         $("body").keypress(function(event) {
@@ -126,7 +130,7 @@ var IIPhistogram = {
                     $("div.navcontainer", viewer).fadeOut(200);
                 }
             }
-         });
+         });    
     },
     
     new: function() {
@@ -150,7 +154,7 @@ var IIPhistogram = {
     set_svg_margin: function() {
         this.margin = this.contrast < 0 ? this.margins[0] : this.margins[1];
         if (this.contrast < 0) {
-            this.margin.left = 16;
+            this.margin.left = 18;
             for (var i = 0; i < this.max.toString().length; i++) {
                 if (i !== 0 && i % 3 === 0) {
                     this.margin.left += 10;

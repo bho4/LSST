@@ -1,9 +1,10 @@
-var ROOT = '/Server/Apache/fcgi-bin/srv-img-src/';
-//var ROOT = '/srv/iipsrv/srv-img-src/';
-var SERVER = '/fcgi-bin/IIPImageServer.fcgi';
-//var SERVER = '../../iipsrv/iipsrv.fcgi';
+//var ROOT = '/Server/Apache/fcgi-bin/srv-img-src/';
+//var SERVER = '/fcgi-bin/IIPImageServer.fcgi';
+
+var ROOT = '/srv/iipsrv/srv-img-src/';
+var SERVER = '../../iipsrv/iipsrv.fcgi';
+
 var DEFAULT_IMAGE = 'raft.tif';
-//var DEFAULT_IMAGE = 'output1.tif';
 $(document).ready(function(){
     init_viewer();
 });

@@ -23,7 +23,9 @@ div#viewer div.canvas canvas.tile{
     border: 0;
 }
 
-div#viewer div.loadBarContainer {
+div#viewer div.loadBarContainer,
+div#viewer div.contrastLoadBarContainer {
+    visibility: hidden;
     border: royalblue outset 2px;
     opacity: 0.66;
     text-align: center;
@@ -34,7 +36,8 @@ div#viewer div.loadBarContainer {
     border-radius: 8px;
 }
 
-div#viewer div.loadBarContainer div.loadBar {
+div#viewer div.loadBarContainer div.loadBar,
+div#viewer div.contrastLoadBarContainer div.loadBar {
     left: 0;
     color: #fff;
     border: 0;

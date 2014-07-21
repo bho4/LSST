@@ -101,27 +101,27 @@
                             <div class="table-row">
                                 <div class="table-cell histogram-info-title" style="width: 16.6%;">Pixel Value</div>
                                 <div class="table-cell histogram-info-title" style="width: 16.6%;">Pixel Count</div>
-                                <div class="table-cell histogram-info-title" style="width: 16.6%;">PV - Max</div>
-                                <div class="table-cell histogram-info-title" style="width: 16.6%;">PC - Max</div>
                                 <div class="table-cell histogram-info-title" style="width: 16.6%;">Pixel Value</div>
                                 <div class="table-cell histogram-info-title" style="width: 16.6%;">Brightness</div>
+                                <div class="table-cell histogram-info-title" style="width: 16.6%;">PV - Max</div>
+                                <div class="table-cell histogram-info-title" style="width: 16.6%;">PC - Max</div>
                             </div>
                             <div class="table-row">
                                 <div id="info-pv" class="table-cell histogram-info-displayer" style="width: 16.6%;">&nbsp;</div>
                                 <div id="info-pc" class="table-cell histogram-info-displayer" style="width: 16.6%;">&nbsp;</div>
-                                <div id="info-pv-max" class="table-cell histogram-info-displayer" style="width: 16.6%;">&nbsp;</div>
-                                <div id="info-pc-max" class="table-cell histogram-info-displayer" style="width: 16.6%;">&nbsp;</div>
                                 <div id="info-pv-contrast" class="table-cell histogram-info-displayer" style="width: 16.6%;">&nbsp;</div>
                                 <div id="info-brightness" class="table-cell histogram-info-displayer" style="width: 16.6%;">&nbsp;</div>
+                                <div id="info-pv-max" class="table-cell histogram-info-displayer" style="width: 16.6%;">&nbsp;</div>
+                                <div id="info-pc-max" class="table-cell histogram-info-displayer" style="width: 16.6%;">&nbsp;</div>
                             </div>
                         </div>
                         <div id="histogram-control-panel" class="table" style="width: 100%; margin-top: 4px;">
                             <div class="table-row">
-                                <div id="vertical-axis-scale-dropdown" class="table-cell histogram-control-widget" style="width: 33.2%;">
+                                <div id="vertical-axis-scale-dropdown" class="table-cell histogram-control-widget" style="width: 33.6%;">
                                     <div class="table" style="width: 100%;">
                                         <div class="table-row">
-                                            <div class="table-cell" style="width: 85%; padding-left: 15px;">Vertical Axis Scale</div>
-                                            <div class="table-cell" style="width: 15%;"><i class="fa fa-sort-asc"></i></div>
+                                            <div class="table-cell" style="width: 95%;">Vertical Axis Scale</div>
+                                            <div class="table-cell" style="width: 5%;"><i class="fa fa-sort-asc"></i></div>
                                         </div>
                                     </div>
                                     <ul style="width: 100%;">
@@ -129,25 +129,33 @@
                                         <li>Logarithmic</li>
                                     </ul>
                                 </div>
-                                <div id="histogram-control-zoom-out" class="table-cell histogram-control-widget" style="width: 16.6%;">
-                                    <i class="fa fa-search-minus" style="opacity: 0.8;"></i>
-                                </div>
-                                <div id="histogram-control-zoom-in" class="table-cell histogram-control-widget" style="width: 16.6%;">
-                                    <i class="fa fa-search-plus" style="opacity: 0.8;"></i>
-                                </div>
-                                <div id="contrast-dropdown" class="table-cell histogram-control-widget" style="width: 16.6%;">
+                                <div id="contrast-dropdown" class="table-cell histogram-control-widget" style="width: 33.2%;">
                                     <div class="table" style="width: 100%;">
                                         <div class="table-row">
-                                            <div class="table-cell" style="width: 90%;">Contrast</div>
-                                            <div class="table-cell" style="width: 10%;"><i class="fa fa-sort-asc"></i></div>
+                                            <div class="table-cell" style="width: 95%;">Contrast</div>
+                                            <div class="table-cell" style="width: 5%;"><i class="fa fa-sort-asc"></i></div>
                                         </div>
                                     </div>
                                     <ul style="width: 100%;">
                                         <li>Linear</li>
                                         <li>Logarithmic</li>
+                                        <li>Invert</li>
+                                        <li>Reset</li>
                                     </ul>
                                 </div>
-                                <div id="histogram-control-reset" class="table-cell histogram-control-widget" style="width: 16.6%;">Reset</div>
+                                <div id="pcmax-dropdown" class="table-cell histogram-control-widget" style="width: 33.2%;">
+                                    <div class="table" style="width: 100%;">
+                                        <div class="table-row">
+                                            <div class="table-cell" style="width: 95%;">PC - Max Controls</div>
+                                            <div class="table-cell" style="width: 5%;"><i class="fa fa-sort-asc"></i></div>
+                                        </div>
+                                    </div>
+                                    <ul style="width: 100%;">
+                                        <li><i class="fa fa-search-minus" style="opacity: 0.8;"></i></li>
+                                        <li><i class="fa fa-refresh"></i></li>
+                                        <li><i class="fa fa-search-plus" style="opacity: 0.8;"></i></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div id="histogram-svg-div" style="width: 100%; margin-top: 4px;"></div>

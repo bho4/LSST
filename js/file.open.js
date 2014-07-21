@@ -1,8 +1,4 @@
 var FileOpen = {
-    init: function() {
-        $("#right-div #file-open-div").width( $("#right-div").width() );
-    },
-    
     html: function() {
         var HTML = "";
         HTML += "<div id=\"choose-image-on-server\">Open an Image on Server</div>";

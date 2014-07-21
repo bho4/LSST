@@ -94,8 +94,16 @@ var LinearContrast = {
     },
     
     apply_contrast: function() {
-        this.map_pv_to_pi();
         var viewer = $("#iip-frame").contents().find("#viewer");
+        var loadBarC = $("div.contrastLoadBarContainer", viewer)[0];
+        var lB = loadBarC.getElement('div.loadBar');
+        lB.setStyle( 'width', 0 );
+        lB.set( 'html', '&nbsp;');
+        loadBarC.setStyles({
+            visibility: 'visible',
+            opacity: 0.85
+        });
+        this.map_pv_to_pi();
         var tiles = $("img.tile", viewer);
         if ($("img.contrast-tile", viewer).length > 0) {
             $("img.contrast-tile", viewer).addClass("toBeRemoved");
@@ -124,9 +132,25 @@ var LinearContrast = {
             img.style.display = "none";
             img.onload = function() {
                 imageLoaded++;
+                
+                var w = (imageLoaded / tiles.length) * IIPV.navigation.options.loadBarWidth;
+                var loadBarContainer = $("div.contrastLoadBarContainer", viewer)[0];
+                var loadBar = loadBarContainer.getElement('div.loadBar');
+                loadBar.setStyle( 'width', w );
+                // Display the % in the progress bar
+                loadBar.set( 'html', ' Contrast&nbsp;:&nbsp;' + Math.round(imageLoaded / tiles.length*100) + '%' );
+
+                if( loadBarContainer.style.opacity != '0.85' ){
+                  loadBarContainer.setStyles({
+                    visibility: 'visible',
+                    opacity: 0.85
+                  });
+                }
+                
                 if (imageLoaded === tiles.length) {
                     $("img.contrast-tile.toBeRemoved", viewer).remove();
                     $("img.contrast-tile", viewer).show();
+                    loadBarContainer.fade('out');
                 }
             };
             img.src = c.toDataURL();

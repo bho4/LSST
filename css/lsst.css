@@ -1,5 +1,5 @@
 body {
-    visibility: hidden
+    visibility: hidden;
 }
 
 .target-viewport-width {
@@ -145,6 +145,7 @@ div#nav-pan-first-row,
 div#nav-pan-second-row {
     -webkit-user-select: none;
     -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 div#nav-pan-first-row div.nav-pan-first-row-button,
@@ -188,6 +189,9 @@ div#nav-pan-second-row div.nav-pan-second-row-button.not-implemented {
 div#left-div {
     position: relative;
     border: #ccc solid 1px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 div#left-div iframe#iip-frame {
@@ -204,6 +208,7 @@ div#right-div {
     border: red dashed 0px;
     -webkit-user-select: none;
     -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 div#image-pixel-histogram {
@@ -235,20 +240,23 @@ div#image-pixel-histogram div#histogram-control-panel div.histogram-control-widg
 }
 
 div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown,
-div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown {
+div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown,
+div#image-pixel-histogram div#histogram-control-panel div#pcmax-dropdown {
     position: relative;
 }
 
 div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown i,
-div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown i {
+div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown i,
+div#image-pixel-histogram div#histogram-control-panel div#pcmax-dropdown i.fa-sort-asc {
     position: absolute;
     top: 3px;
-    right: 12px;
+    right: 8px;
     opacity: 0.4;
 }
 
 div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown ul,
-div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown ul {
+div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown ul,
+div#image-pixel-histogram div#histogram-control-panel div#pcmax-dropdown ul {
     display: none;
     position: absolute;
     margin: 1px 0px 1px 0px;
@@ -257,12 +265,14 @@ div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown ul {
 }
 
 div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown:hover > ul,
-div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown:hover > ul {
+div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown:hover > ul,
+div#image-pixel-histogram div#histogram-control-panel div#pcmax-dropdown:hover > ul {
     display: block;
 }
 
 div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown ul li,
-div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown ul li {
+div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown ul li,
+div#image-pixel-histogram div#histogram-control-panel div#pcmax-dropdown ul li {
     padding: inherit;
     cursor: pointer;
     background-color: white;
@@ -282,17 +292,9 @@ div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown ul l
     background-color: cornflowerblue;
 }
 
-div#image-pixel-histogram div#histogram-control-panel div#histogram-control-zoom-in,
-div#image-pixel-histogram div#histogram-control-panel div#histogram-control-zoom-out,
-div#image-pixel-histogram div#histogram-control-panel div#histogram-control-reset {
-    cursor: pointer;
-}
-
-div#image-pixel-histogram div#histogram-control-panel div#histogram-control-zoom-in:active,
-div#image-pixel-histogram div#histogram-control-panel div#histogram-control-zoom-out:active,
-div#image-pixel-histogram div#histogram-control-panel div#histogram-control-reset:active,
 div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown ul li:active,
-div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown ul li:active {
+div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown ul li:active,
+div#image-pixel-histogram div#histogram-control-panel div#pcmax-dropdown ul li:active {
     border: #ccc inset thin;
 }
 
