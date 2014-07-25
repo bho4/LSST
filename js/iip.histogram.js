@@ -5,7 +5,7 @@ var IIPhistogram = {
     shiftForMaxPV: 0,
     verticalaxis: 0,
     contrast: -1,
-    margins: [{top: 28, right: 25, bottom: 35, left: 18}, {top: 35, right: 40, bottom: 35, left: 60}],
+    margins: [{top: 17, right: 12, bottom: 28, left: 42}, {top: 28, right: 30, bottom: 28, left: 42}],
     width: null,
     height: null,
     max: null,
@@ -51,7 +51,7 @@ var IIPhistogram = {
             $(this).addClass("selected");
             $(this).addClass("stripe-btn");
             IIPhistogram.draw_histogram();
-            IIPhistogram.invoke_contrast();
+            IIPhistogram.contrast_control();
         });
         // Contrast Control Callback
         $("#" + this.controlpanelid + " #contrast-dropdown ul li").click(function() {
@@ -83,7 +83,8 @@ var IIPhistogram = {
             
             IIPhistogram.set_svg_margin();
             IIPhistogram.draw_histogram();
-            IIPhistogram.invoke_contrast();
+            IIPhistogram.apply_contrast();
+            IIPhistogram.contrast_control();
         });
         // PC - Max Control Callback
         $("#" + this.controlpanelid + " #pcmax-dropdown ul li").click(function() {
@@ -93,31 +94,23 @@ var IIPhistogram = {
                     /* Zoom Out */
                     if (IIPhistogram.shiftForMaxPV > 0) {
                         IIPhistogram.shiftForMaxPV--;
-                        IIPhistogram.prepare_data();
-                        IIPhistogram.set_svg_margin();
-                        IIPhistogram.draw_histogram();
-                        IIPhistogram.invoke_contrast();
                     }
                     break;
                 case 2:
                     /* Zoom In */
                     if (IIPhistogram.shiftForMaxPV < 50) {
                         IIPhistogram.shiftForMaxPV++;
-                        IIPhistogram.prepare_data();
-                        IIPhistogram.set_svg_margin();
-                        IIPhistogram.draw_histogram();
-                        IIPhistogram.invoke_contrast();
                     }
                     break;
                 default:
                     /* Reset */
                     IIPhistogram.shiftForMaxPV = 0;
-                    IIPhistogram.prepare_data();
-                    IIPhistogram.set_svg_margin();
-                    IIPhistogram.draw_histogram();
-                    IIPhistogram.invoke_contrast();
                     break;
             }
+            IIPhistogram.prepare_data();
+            IIPhistogram.set_svg_margin();
+            IIPhistogram.draw_histogram();
+            IIPhistogram.contrast_control();
         });
          
         // Toggle - & + embedded in the viewer
@@ -138,7 +131,8 @@ var IIPhistogram = {
         this.prepare_data();
         this.set_svg_margin();
         this.draw_histogram();
-        this.invoke_contrast();
+        this.apply_contrast();
+        this.contrast_control();
     },
     
     prepare_data: function() {
@@ -152,14 +146,16 @@ var IIPhistogram = {
     },
     
     set_svg_margin: function() {
+        
         this.margin = this.contrast < 0 ? this.margins[0] : this.margins[1];
+        return;
         if (this.contrast < 0) {
             this.margin.left = 18;
             for (var i = 0; i < this.max.toString().length; i++) {
                 if (i !== 0 && i % 3 === 0) {
-                    this.margin.left += 10;
-                } else {
                     this.margin.left += 8;
+                } else {
+                    this.margin.left += 6;
                 }
             }
         }
@@ -286,7 +282,20 @@ var IIPhistogram = {
         }
     },
     
-    invoke_contrast: function() {
+    apply_contrast: function() {
+        switch (this.contrast) {
+            case 0:
+                LinearContrast.apply_contrast();
+                break;
+            case 1:
+                LogContrast.apply_contrast();
+                break;
+            default:
+                return;
+        }
+    },
+    
+    contrast_control: function() {
         switch (this.contrast) {
             case 0:
                 LinearContrast.new();

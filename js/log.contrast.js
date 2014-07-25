@@ -182,8 +182,6 @@ var LogContrast = {
     },
     
     new: function() {
-        this.apply_contrast();
-        
         var svg = 
         d3.select("#" + IIPhistogram.svgid + " svg")
         

@@ -1,10 +1,9 @@
 body {
     visibility: hidden;
-    font-size: 85%;
 }
 
 .target-viewport-width {
-    width: 1145px;
+    width: 1024px;
 }
 
 .table {
@@ -20,7 +19,7 @@ body {
 }
 
 .table-margin {
-    border: red dashed 0px;
+    border: red dashed 0px !important;
 }
 
 .stripe-btn {
@@ -58,6 +57,7 @@ body {
 }
 
 div#info-div {
+    font-size: 12px;
 }
 
 div#info-div div.info-title {
@@ -144,6 +144,7 @@ div#magnifier canvas {
 
 div#nav-pan-first-row,
 div#nav-pan-second-row {
+    font-size: 12px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -155,7 +156,16 @@ div#nav-pan-second-row div.nav-pan-second-row-button {
     text-align: center;
     cursor: pointer;
     border: #ccc solid 1px;
-    border-radius: 8px;
+    border-left: none;
+}
+
+div#nav-pan-second-row div.nav-pan-second-row-button {
+    border-top: none;
+}
+
+div#nav-pan-first-row div.nav-pan-first-row-button:first-child,
+div#nav-pan-second-row div.nav-pan-second-row-button:first-child {
+    border-left: #ccc solid 1px;
 }
 
 div#nav-pan-first-row div.nav-pan-first-row-button:hover,
@@ -171,7 +181,7 @@ div#nav-pan-second-row div.nav-pan-second-row-button:active {
 div#nav-pan-first-row div.nav-pan-first-row-button.selected {
     color: white;
     background-color: cornflowerblue;
-    border: cornflowerblue outset 2px;
+    border: cornflowerblue outset 1px;
 }
 
 div#nav-pan-second-row div.nav-pan-second-row-button.selected {
@@ -205,7 +215,8 @@ div#left-div iframe#iip-frame {
 }
 
 div#right-div {
-    height: 425px;
+    font-size: 12px;
+    height: 405px;
     border: red dashed 0px;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -228,31 +239,56 @@ div#image-pixel-histogram div#histogram-info-div div.histogram-info-displayer {
     border-radius: 5px;
 }
 
+div#image-pixel-histogram div#histogram-info-div div.histogram-info-title:first-child,
+div#image-pixel-histogram div#histogram-info-div div.histogram-info-displayer:first-child {
+    border-left: #ccc solid 1px;
+}
+
+div#image-pixel-histogram div#histogram-info-div div.histogram-info-title {
+}
+
 div#image-pixel-histogram div#histogram-control-panel {
 }
 
 div#image-pixel-histogram div#histogram-control-panel div.histogram-control-widget {
-    padding: 5px 0px 5px 0px;
     text-align: center;
     border: #ccc outset thin;
+    
+}
+
+div#image-pixel-histogram div#histogram-control-panel div.histogram-control-widget div div div.dropdown-name {
+    border: #ccc solid 1px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right: none;
+    cursor: pointer;
+}
+
+div#image-pixel-histogram div#histogram-control-panel div.histogram-control-widget div div div.arrow-down {
+    border: #ccc solid 1px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    cursor: pointer;
 }
 
 div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown,
 div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown,
 div#image-pixel-histogram div#histogram-control-panel div#pcmax-dropdown {
     position: relative;
+    border: #ccc solid 0px;
 }
 
-div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown i,
-div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown i,
-div#image-pixel-histogram div#histogram-control-panel div#pcmax-dropdown i.fa-sort-asc {
-    position: absolute;
-    top: 3px;
-    right: 8px;
-    opacity: 0.4;
+div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown div.arrow-down i,
+div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown div.arrow-down i,
+div#image-pixel-histogram div#histogram-control-panel div#pcmax-dropdown div.arrow-down i {
+    position: relative;
+    padding: 5px 0px 5px 0px;
 }
 
 div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown ul,
@@ -260,7 +296,7 @@ div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown ul,
 div#image-pixel-histogram div#histogram-control-panel div#pcmax-dropdown ul {
     display: none;
     position: absolute;
-    margin: 1px 0px 1px 0px;
+    margin: 0px 0px 0px 0px;
     padding: inherit;
     list-style: none;
 }
@@ -274,7 +310,7 @@ div#image-pixel-histogram div#histogram-control-panel div#pcmax-dropdown:hover >
 div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dropdown ul li,
 div#image-pixel-histogram div#histogram-control-panel div#contrast-dropdown ul li,
 div#image-pixel-histogram div#histogram-control-panel div#pcmax-dropdown ul li {
-    padding: inherit;
+    padding: 5px 0px 5px 0px;
     cursor: pointer;
     background-color: white;
     border: #ccc outset thin;
@@ -304,6 +340,7 @@ div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dr
 }
 
 div#image-pixel-histogram div#histogram-svg-div {
+    font-size: 8px;
     border: #ccc solid thin;
     -moz-box-shadow: 2px 2px 5px #888;
     -webkit-box-shadow: 2px 2px 5px #888;
@@ -330,7 +367,6 @@ div#image-pixel-histogram div#histogram-svg-div svg g rect:hover {
 }
 
 div#image-pixel-histogram div#histogram-svg-div svg g text {
-    font-size: small;
 }
 
 div#image-pixel-histogram div#histogram-svg-div svg g.y.axis text {
