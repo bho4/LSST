@@ -63,20 +63,11 @@ div#info-div {
 div#info-div div.info-title {
     text-align: center;
     border: #ccc solid 1px;
-    -moz-box-shadow: 2px 2px 5px #888;
-    -webkit-box-shadow: 2px 2px 5px #888;
-    box-shadow: 2px 2px 5px #888;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
 }
 
 div#info-div div.info-displayer {
     text-align: center;
     border: #ccc solid 1px;
-    -moz-box-shadow: 2px 2px 5px #888;
-    -webkit-box-shadow: 2px 2px 5px #888;
-    box-shadow: 2px 2px 5px #888;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
@@ -148,6 +139,9 @@ div#nav-pan-second-row {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    -moz-box-shadow: 2px 2px 5px #888;
+    -webkit-box-shadow: 2px 2px 5px #888;
+    box-shadow: 0px 2px 5px #888;
 }
 
 div#nav-pan-first-row div.nav-pan-first-row-button,
@@ -155,22 +149,29 @@ div#nav-pan-second-row div.nav-pan-second-row-button {
     padding: 3px 0px 3px 0px;
     text-align: center;
     cursor: pointer;
-    border: #ccc solid 1px;
+}
+
+div#nav-pan-first-row div.nav-pan-first-row-button {
+    border: #ccc outset 1px;
     border-left: none;
 }
 
 div#nav-pan-second-row div.nav-pan-second-row-button {
+    border: #ccc outset 1px;
+    border-left: none;
     border-top: none;
 }
 
 div#nav-pan-first-row div.nav-pan-first-row-button:first-child,
 div#nav-pan-second-row div.nav-pan-second-row-button:first-child {
-    border-left: #ccc solid 1px;
+    border-left: #ccc outset 1px;
 }
 
 div#nav-pan-first-row div.nav-pan-first-row-button:hover,
 div#nav-pan-second-row div.nav-pan-second-row-button:hover {
-    border: #ccc outset 1px;
+    -moz-box-shadow: 0px 0px 5px #888;
+    -webkit-box-shadow: 0px 0px 5px #888;
+    box-shadow: 0px 0px 5px #888;
 }
 
 div#nav-pan-first-row div.nav-pan-first-row-button:active,
@@ -181,13 +182,20 @@ div#nav-pan-second-row div.nav-pan-second-row-button:active {
 div#nav-pan-first-row div.nav-pan-first-row-button.selected {
     color: white;
     background-color: cornflowerblue;
-    border: cornflowerblue outset 1px;
+    border: #ccc inset 1px;
 }
 
 div#nav-pan-second-row div.nav-pan-second-row-button.selected {
     color: white;
     background-color: cornflowerblue;
-    border: cornflowerblue outset 1px;
+    border: #ccc inset 1px;
+}
+
+div#nav-pan-first-row div.nav-pan-first-row-button.selected:hover,
+div#nav-pan-second-row div.nav-pan-second-row-button.selected:hover {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
 }
 
 div#nav-pan-second-row div.nav-pan-second-row-button.not-implemented {
@@ -195,6 +203,9 @@ div#nav-pan-second-row div.nav-pan-second-row-button.not-implemented {
     background-color: #ddd;
     cursor: default;
     border: #ccc solid 1px !important;
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
 }
 
 div#left-div {
@@ -231,12 +242,12 @@ div#image-pixel-histogram div#histogram-info-div div.histogram-info-title,
 div#image-pixel-histogram div#histogram-info-div div.histogram-info-displayer {
     padding: 5px 0px 5px 0px;
     text-align: center;
-    -moz-box-shadow: 2px 2px 5px #888;
-    -webkit-box-shadow: 2px 2px 5px #888;
-    box-shadow: 2px 2px 5px #888;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+    border: #ccc solid 1px;
+    border-left: none;
+}
+
+div#image-pixel-histogram div#histogram-info-div div.histogram-info-displayer {
+    border-top: none;
 }
 
 div#image-pixel-histogram div#histogram-info-div div.histogram-info-title:first-child,
@@ -253,22 +264,31 @@ div#image-pixel-histogram div#histogram-control-panel {
 div#image-pixel-histogram div#histogram-control-panel div.histogram-control-widget {
     text-align: center;
     border: #ccc outset thin;
-    
+    -moz-box-shadow: 2px 2px 5px #888;
+    -webkit-box-shadow: 2px 2px 5px #888;
+    box-shadow: 2px 2px 5px #888;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 
 div#image-pixel-histogram div#histogram-control-panel div.histogram-control-widget div div div.dropdown-name {
-    border: #ccc solid 1px;
+    border-top: #ccc solid 1px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
-    border-right: none;
     cursor: pointer;
 }
 
+div#image-pixel-histogram div#histogram-control-panel div.histogram-control-widget div div div.dropdown-name:first-child {
+    border-left: #ccc solid 1px;
+}
+
 div#image-pixel-histogram div#histogram-control-panel div.histogram-control-widget div div div.arrow-down {
-    border: #ccc solid 1px;
+    border-left: #ccc solid 1px;
+    border-top: #ccc solid 1px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
@@ -341,13 +361,7 @@ div#image-pixel-histogram div#histogram-control-panel div#vertical-axis-scale-dr
 
 div#image-pixel-histogram div#histogram-svg-div {
     font-size: 8px;
-    border: #ccc solid thin;
-    -moz-box-shadow: 2px 2px 5px #888;
-    -webkit-box-shadow: 2px 2px 5px #888;
-    box-shadow: 2px 2px 5px #888;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+    border: #ccc solid 1px;
 }
 
 div#image-pixel-histogram div#histogram-svg-div svg g g.axis path,
@@ -358,7 +372,7 @@ div#image-pixel-histogram div#histogram-svg-div svg g g.axis line {
 }
 
 div#image-pixel-histogram div#histogram-svg-div svg g rect {
-    fill: #CCC;
+    fill: #ccc;
 }
 
 div#image-pixel-histogram div#histogram-svg-div svg g rect:hover {
@@ -439,16 +453,11 @@ div#file-open-div {
 div#file-open-div div#choose-image-on-server,
 div#file-open-div div#upload-image-to-server {
     padding: 6px 0px 6px 0px;
-    border: 1px solid #ccc;
+    border-top: #ccc dashed 2px;
+    border-bottom: #ccc dashed 2px;
     text-align: center;
     font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
-    -moz-box-shadow: 2px 2px 5px #888;
-    -webkit-box-shadow: 2px 2px 5px #888;
-    box-shadow: 2px 2px 5px #888;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    border-radius: 8px;
-    font-size: 130%;
+    font-size: 120%;
 }
 
 div#file-open-div div.image-on-server {

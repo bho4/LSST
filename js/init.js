@@ -14,7 +14,7 @@ $(document).ready(function() {
         $("div#nav-pan-second-row").css("font-size", "19px");
         $("div#right-div").css("font-size", "19px");
         $("div#right-div").css("height", "580px");
-        IIPhistogram.margins = [{top: 25, right: 20, bottom: 33, left: 60}, {top: 35, right: 43, bottom: 33, left: 60}];
+        IIPhistogram.margins = [{top: 25, right: 20, bottom: 33, left: 60}, {top: 35, right: 40, bottom: 33, left: 60}];
         $("div#image-pixel-histogram div#histogram-svg-div").css("font-size", "13px");
     } else if (window.innerWidth >= 1536) {
         $(".target-viewport-width").css("width", "1280px");
