@@ -48,8 +48,6 @@ var LinearContrast = {
         this.y1 = IIPhistogram.height - this.margin.top - this.margin.bottom;
         this.x2 = IIPhistogram.width - this.margin.left - this.margin.right;
         this.y2 = 0;
-        
-        this.reset();
     },
     
     reset: function() {

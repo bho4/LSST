@@ -41,8 +41,6 @@ var LogContrast = {
         this.line = d3.svg.line()
             .x(function(d) { return LogContrast.fx(d[0]); })
             .y(function(d) { return LogContrast.fy(d[1]); });
-        
-        this.reset();
     },
     
     reset: function() {

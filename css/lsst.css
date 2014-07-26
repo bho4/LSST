@@ -51,10 +51,16 @@ body {
 
 .blue {
     border: royalblue solid 1px !important;
-    -moz-box-shadow: 2px 2px 5px royalblue !important;
-    -webkit-box-shadow: 2px 2px 5px royalblue !important;
-    box-shadow: 2px 2px 5px royalblue !important;
 }
+
+.three {
+    width: 29.5% !important;
+}
+
+.seven {
+    width: 69.5% !important;
+}
+
 
 div#info-div {
     font-size: 12px;
@@ -240,7 +246,7 @@ div#image-pixel-histogram {
 
 div#image-pixel-histogram div#histogram-info-div div.histogram-info-title,
 div#image-pixel-histogram div#histogram-info-div div.histogram-info-displayer {
-    padding: 5px 0px 5px 0px;
+    padding: 3px 0px 3px 0px;
     text-align: center;
     border: #ccc solid 1px;
     border-left: none;
@@ -453,8 +459,7 @@ div#file-open-div {
 div#file-open-div div#choose-image-on-server,
 div#file-open-div div#upload-image-to-server {
     padding: 6px 0px 6px 0px;
-    border-top: #ccc dashed 2px;
-    border-bottom: #ccc dashed 2px;
+    border-bottom: #ddd solid 2px;
     text-align: center;
     font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
     font-size: 120%;

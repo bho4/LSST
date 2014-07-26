@@ -5,7 +5,7 @@ var IIPhistogram = {
     shiftForMaxPV: 0,
     verticalaxis: 0,
     contrast: -1,
-    margins: [{top: 17, right: 12, bottom: 28, left: 42}, {top: 28, right: 30, bottom: 28, left: 42}],
+    margins: [{top: 16, right: 12, bottom: 24, left: 35}, {top: 24, right: 30, bottom: 24, left: 35}],
     width: null,
     height: null,
     max: null,
@@ -34,8 +34,9 @@ var IIPhistogram = {
         this.height = $("#" + this.svgid).height();
         // Initialize Contrast Control
         LinearContrast.init();
+        LinearContrast.reset();
         LogContrast.init();
-        
+        LogContrast.reset();
         // Initialize Vertical Axis Control
         $($("#" + this.controlpanelid + " #vertical-axis-scale-dropdown ul li")[this.verticalaxis]).addClass("selected");
         $($("#" + this.controlpanelid + " #vertical-axis-scale-dropdown ul li")[this.verticalaxis]).addClass("stripe-btn");
@@ -191,6 +192,7 @@ var IIPhistogram = {
             yAxis = 
             d3.svg.axis()
                 .scale(y)
+                .tickFormat(d3.format("s"))
                 .orient("left");
         } else {
             y = 
@@ -209,7 +211,7 @@ var IIPhistogram = {
             d3.svg.axis()
                 .scale(y)
                 .tickValues(ticks)
-                .tickFormat(d3.format(",d"))
+                .tickFormat(d3.format("s"))
                 .orient("left");
         }
         var chart = 
