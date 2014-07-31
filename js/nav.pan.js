@@ -13,7 +13,7 @@ var NavPan = {
         {btn: "bin"},
         {btn: "zoom", res: "restore_zoom_second_row"},
         {btn: "histogram", res: "restore_histogram_second_row"},
-        {btn: "color"},
+        {btn: "color", res: "restore_color_second_row"},
         {btn: "region"},
         {btn: "wcs"},
         {btn: "help"}
@@ -101,6 +101,9 @@ var NavPan = {
         ],
         [
             {btn: "grey", implemented: false},
+            {btn: "red", implemented: true},
+            {btn: "green", implemented: true},
+            {btn: "blue", implemented: true},
             {btn: "a", implemented: false},
             {btn: "b", implemented: false},
             {btn: "bb", implemented: false},
@@ -266,7 +269,32 @@ var NavPan = {
                     break;
                 case 7:
                     /* color */
-                    IIPhistogram.invert_color_map();
+                    if (second_row === 13) {
+                        /* invert colormap */
+                        IIPhistogram.invert_color_map();
+                    } else if (IIPhistogram.contrast < 0) {
+                        if ($(this).hasClass("selected")) {
+                            $(this).removeClass("selected");
+                            Color.color = 0;
+                            Color.remove();
+                        } else {
+                            $("." + NavPan.second_row_button_class).removeClass("selected");
+                            $(this).addClass("selected");
+                            Color.color = second_row;
+                            Color.apply();
+                        }
+                    } else {
+                        if ($(this).hasClass("selected")) {
+                            $(this).removeClass("selected");
+                            Color.color = 0;
+                        } else {
+                            $("." + NavPan.second_row_button_class).removeClass("selected");
+                            $(this).addClass("selected");
+                            Color.color = second_row;
+                        }
+                        Color.apply_with_contrast_on();
+                    }
+                    
                     break;
                 case 8:
                     break;
@@ -300,6 +328,12 @@ var NavPan = {
         
         if (IIPhistogram.contrast >= 0) {
             this.toggle_second_row_button(IIPhistogram.contrast);
+        }
+    },
+    
+    restore_color_second_row: function() {
+        if (Color.color > 0) {
+            this.toggle_second_row_button(Color.color);
         }
     },
     

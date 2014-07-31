@@ -116,11 +116,12 @@ var LinearContrast = {
             ctx.drawImage(tiles[i], 0, 0);
             var imageData = ctx.getImageData(0, 0, tiles[i].width, tiles[i].height);
             var pixels = imageData.data;
-            for (var j = 0; j < pixels.length; j+=4) {
-                pixels[j] = this.pvTopi[ pixels[j] ];
-                pixels[j+1] = this.pvTopi[ pixels[j+1] ];
-                pixels[j+2] = this.pvTopi[ pixels[j+2] ];
-            }
+            Color.change_color(pixels, this.pvTopi);
+//            for (var j = 0; j < pixels.length; j+=4) {
+//                pixels[j] = this.pvTopi[ pixels[j] ];
+//                pixels[j+1] = this.pvTopi[ pixels[j+1] ];
+//                pixels[j+2] = this.pvTopi[ pixels[j+2] ];
+//            }
             ctx.putImageData(imageData, 0, 0);
             var img = $('<img>')[0];
             img.className = "contrast-tile";
@@ -162,12 +163,24 @@ var LinearContrast = {
         var imageDataNew = ctx.createImageData(this.curview.width, this.curview.height);
         var pixels = imageDataNew.data;
         var copyFrom = IIPhistogram.curview.getContext("2d").getImageData(0, 0, this.curview.width, this.curview.height).data;
-        for (var k = 0; k < pixels.length; k+=4) {
-            pixels[k] = this.pvTopi[ copyFrom[k] ];
-            pixels[k+1] = this.pvTopi[ copyFrom[k+1] ];
-            pixels[k+2] = this.pvTopi[ copyFrom[k+2] ];
-            pixels[k+3] = 255;
-        }
+        Color.change_color(pixels, this.pvTopi, copyFrom);
+//        for (var k = 0; k < pixels.length; k+=4) {
+//            switch (IIPhistogram.color) {
+//                case 0:
+//                    pixels[k] = this.pvTopi[ copyFrom[k] ];
+//                    pixels[k+1] = this.pvTopi[ copyFrom[k+1] ];
+//                    pixels[k+2] = this.pvTopi[ copyFrom[k+2] ];
+//                    pixels[k+3] = 255;
+//                    break;
+//                case 1:
+//                    pixels[k] = this.pvTopi[ copyFrom[k] ];
+//                    pixels[k+1] = 0;
+//                    pixels[k+2] = 0;
+//                    pixels[k+3] = 255;
+//                    break;
+//            }
+//            
+//        }
         ctx.putImageData(imageDataNew, 0, 0);
         
         $("img.contrast-tile", viewer).mousemove(function(event) {
@@ -225,15 +238,20 @@ var LinearContrast = {
             .attr("id", "outer-black-control-point")
             .attr("cx", this.x1)
             .attr("cy", this.y1)
-            .attr("r", 10)
-            .attr("onmouseenter", "IIPhistogram.contrast_display(LinearContrast.blackValue, LinearContrast.blackIntensity)")
-            .attr("onmouseleave", "IIPhistogram.reset_contrast_display()");
+            .attr("r", 10);
         
         // Callback
         $("#outer-black-control-point")
             .mousedown(function(e) {
                 LinearContrast.select(e, 1);
+            })
+            .mouseenter(function() {
+                IIPhistogram.contrast_display(LinearContrast.blackValue, LinearContrast.blackIntensity)
+            })
+            .mouseleave(function() {
+                IIPhistogram.reset_contrast_display();
             });
+
         
         bcp.append("circle")
             .attr("id", "inner-black-control-point")
@@ -251,14 +269,18 @@ var LinearContrast = {
             .attr("id", "outer-white-control-point")
             .attr("cx", this.x2)
             .attr("cy", this.y2)
-            .attr("r", 10)
-            .attr("onmouseenter", "IIPhistogram.contrast_display(LinearContrast.whiteValue, LinearContrast.whiteIntensity)")
-            .attr("onmouseleave", "IIPhistogram.reset_contrast_display()");
+            .attr("r", 10);
         
         // Callback
         $("#outer-white-control-point")
             .mousedown(function(e) {
                 LinearContrast.select(e, 2);
+            })
+            .mouseenter(function() {
+                IIPhistogram.contrast_display(LinearContrast.whiteValue, LinearContrast.whiteIntensity)
+            })
+            .mouseleave(function() {
+                IIPhistogram.reset_contrast_display();
             });
 
         wcp.append("circle")

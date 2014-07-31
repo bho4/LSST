@@ -11,6 +11,7 @@ var IIPhistogram = {
     max: null,
     margin: null,
     curview: null,
+    color: 1,
     
     select_vertical_axis_scale_button: function() {
         
@@ -84,8 +85,14 @@ var IIPhistogram = {
             
             IIPhistogram.set_svg_margin();
             IIPhistogram.draw_histogram();
-            IIPhistogram.apply_contrast();
-            IIPhistogram.contrast_control();
+            if (IIPhistogram.contrast < 0) {
+                if (Color.color > 0) {
+                    Color.apply();
+                }
+            } else {
+                IIPhistogram.apply_contrast();
+                IIPhistogram.contrast_control();
+            }
         });
         // PC - Max Control Callback
         $("#" + this.controlpanelid + " #pcmax-dropdown ul li").click(function() {
@@ -132,8 +139,14 @@ var IIPhistogram = {
         this.prepare_data();
         this.set_svg_margin();
         this.draw_histogram();
-        this.apply_contrast();
-        this.contrast_control();
+        if (this.contrast < 0) {
+            if (Color.color > 0) {
+                Color.apply();
+            }
+        } else {
+            this.apply_contrast();
+            this.contrast_control();
+        }
     },
     
     prepare_data: function() {
@@ -226,7 +239,7 @@ var IIPhistogram = {
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis);
-
+        
         chart
         .append("g")
             .attr("class", "y axis")
@@ -281,6 +294,41 @@ var IIPhistogram = {
                 .attr("transform", "translate(" + width + "," + 0 + ")" )
                 .attr("class", "y axis right")
                 .call(yAxis);
+        
+        
+            chart
+            .append("g")
+                .attr("class", "grid")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis
+                    .tickSize(height, 0, 0)
+                    .tickFormat("")
+                );
+        
+            chart
+            .append("g")
+                .attr("class", "grid")
+                .call(yAxis
+                    .tickSize(width, 0, 0)
+                    .tickFormat("")
+                );
+        } else {
+            chart
+            .append("g")
+                .attr("class", "grid")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis
+                    .tickSize(-height, 0, 0)
+                    .tickFormat("")
+                );
+        
+            chart
+            .append("g")
+                .attr("class", "grid")
+                .call(yAxis
+                    .tickSize(-width, 0, 0)
+                    .tickFormat("")
+                );
         }
     },
     
@@ -562,7 +610,9 @@ var IIPhistogram = {
         copy.getContext('2d').drawImage(curview, 0, 0);
         var imageData = copy.getContext('2d').getImageData(sx, sy, 1, 1);
         var pixel = imageData.data;
-        $("#info-div #pixel-value").text(pixel[0]);
+        
+        var val = Color.color > 0 ? pixel[Color.color - 1] : pixel[0];
+        $("#info-div #pixel-value").text(val);
         $("#info-div #pixel-value").addClass("blue");
         var ctx = copy.getContext('2d');
         this.paint(ctx, sx, sy - 1);

@@ -392,6 +392,16 @@ div#image-pixel-histogram div#histogram-svg-div svg g text {
 div#image-pixel-histogram div#histogram-svg-div svg g.y.axis text {
 }
 
+div#image-pixel-histogram div#histogram-svg-div svg g.grid g.tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+    shape-rendering: auto;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g.grid path {
+    stroke-width: 0;
+}
+
 div#image-pixel-histogram div#histogram-svg-div svg g path.line {
     fill: none;
     stroke: royalblue;
