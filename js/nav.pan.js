@@ -80,13 +80,12 @@ var NavPan = {
             {btn: "-", implemented: true},
             {btn: "+", implemented: true},
             {btn: "to fit", implemented: false},
-            {btn: "zoom 1/8", implemented: "dynamically decided"},
-            {btn: "zoom 1/4", implemented: "dynamically decided"},
-            {btn: "zoom 1/2", implemented: "dynamically decided"},
-            {btn: "zoom 1", implemented: "dynamically decided"},
-            {btn: "zoom 2", implemented: "dynamically decided"},
-            {btn: "zoom 4", implemented: "dynamically decided"},
-            {btn: "zoom 8", implemented: "dynamically decided"}
+            {btn: "zoom 1:1024", implemented: "dynamically decided"},
+            {btn: "zoom 1:256", implemented: "dynamically decided"},
+            {btn: "zoom 1:64", implemented: "dynamically decided"},
+            {btn: "zoom 1:16", implemented: "dynamically decided"},
+            {btn: "zoom 1:4", implemented: "dynamically decided"},
+            {btn: "zoom 1:1", implemented: "dynamically decided"}
         ],
         [
             {btn: "linear", implemented: true},
@@ -200,9 +199,9 @@ var NavPan = {
         if (type === 5) {
             /* zoom */
             for (var i = 0; i < IIPV.num_resolutions; i++) {
-                btns[i+3].implemented = true;
+                btns[i+3 + (6 - IIPV.num_resolutions)].implemented = true;
             }
-            for (var i = IIPV.num_resolutions; i < 7; i++) {
+            for (var i = 0; i < (6 - IIPV.num_resolutions); i++) {
                 btns[i+3].implemented = false;
             }
         }
@@ -258,7 +257,7 @@ var NavPan = {
                         case 2:
                             break;
                         default:
-                            IIPV.zoomTo(second_row - 3);
+                            IIPV.zoomTo(second_row - 3 - (6-IIPV.num_resolutions));
                     }
                     
                     NavPan.restore_zoom_second_row();
@@ -317,7 +316,7 @@ var NavPan = {
     
     restore_zoom_second_row: function() {
         this.deselect_second_row_buttons();
-        this.select_second_row__button(IIPV.view.res + 3);
+        this.select_second_row__button(IIPV.view.res + 3 + (6-IIPV.num_resolutions));
     },
     
     restore_histogram_second_row: function() {
@@ -327,7 +326,8 @@ var NavPan = {
         }
         
         if (IIPhistogram.contrast >= 0) {
-            this.toggle_second_row_button(IIPhistogram.contrast);
+            var idx = $("#contrast-dropdown ul li").index($("#contrast-dropdown ul li.selected"));
+            this.toggle_second_row_button(idx);
         }
     },
     

@@ -62,6 +62,7 @@ $(document).ready(function() {
         LinearContrast.reset();
         LogContrast.init();
         LogContrast.reset();
+        LinearLogContrast.reset();
         FileOpen.change_image(DEFAULT_IMAGE);
     });            
 });

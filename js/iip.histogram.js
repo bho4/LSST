@@ -13,10 +13,6 @@ var IIPhistogram = {
     curview: null,
     color: 1,
     
-    select_vertical_axis_scale_button: function() {
-        
-    },
-    
     init: function() {
         // Set the size of SVG container
         var ch = $("#right-div").height();
@@ -38,6 +34,7 @@ var IIPhistogram = {
         LinearContrast.reset();
         LogContrast.init();
         LogContrast.reset();
+        LinearLogContrast.init();
         // Initialize Vertical Axis Control
         $($("#" + this.controlpanelid + " #vertical-axis-scale-dropdown ul li")[this.verticalaxis]).addClass("selected");
         $($("#" + this.controlpanelid + " #vertical-axis-scale-dropdown ul li")[this.verticalaxis]).addClass("stripe-btn");
@@ -340,6 +337,9 @@ var IIPhistogram = {
             case 1:
                 LogContrast.apply_contrast();
                 break;
+            case 2:
+                LinearLogContrast.apply_contrast();
+                break;
             default:
                 return;
         }
@@ -349,13 +349,20 @@ var IIPhistogram = {
         switch (this.contrast) {
             case 0:
                 LinearContrast.new();
+                //LinearLogContrast.new();
                 break;
             case 1:
                 LogContrast.new();
                 break;
-            default:
-                return;
+            case 2:
+                LinearLogContrast.new();
+                LinearLogContrast.add_control_points();
+                LinearLogContrast.svg_callback();
+                LinearLogContrast.control_point_callback();
+                break;
         }
+        
+        LinearLogContrast.dblclick_callback();
     },
     
     reset_contrast: function() {
@@ -386,8 +393,9 @@ var IIPhistogram = {
             LinearContrast.invert();
             $( $("#" + this.controlpanelid + " #contrast-dropdown ul li")[0] ).trigger("click");
         } else {
+            var idx = $("#contrast-dropdown ul li").index($("#contrast-dropdown ul li.selected"));
             $("#" + this.controlpanelid + " #contrast-dropdown ul li").removeClass("selected");
-            if (this.contrast === 0) {
+            if (idx === 0) {
                 LinearContrast.invert();
                 $( $("#" + this.controlpanelid + " #contrast-dropdown ul li")[0] ).trigger("click");
             } else {

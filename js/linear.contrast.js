@@ -200,7 +200,7 @@ var LinearContrast = {
     
     new: function() {
         var svg = 
-        d3.select("#" + IIPhistogram.svgid + " svg")
+        d3.select("#" + IIPhistogram.svgid + " svg");
         
         // Callbacks
         $("#" + IIPhistogram.svgid + " svg")
@@ -277,7 +277,7 @@ var LinearContrast = {
                 LinearContrast.select(e, 2);
             })
             .mouseenter(function() {
-                IIPhistogram.contrast_display(LinearContrast.whiteValue, LinearContrast.whiteIntensity)
+                IIPhistogram.contrast_display(LinearContrast.whiteValue, LinearContrast.whiteIntensity);
             })
             .mouseleave(function() {
                 IIPhistogram.reset_contrast_display();

@@ -343,7 +343,8 @@ var Navigation = new Class({
     else{
       // From a drag
       xmove = e.offsetLeft;
-      ymove = e.offsetTop-10;
+//      ymove = e.offsetTop-10;
+        ymove = e.offsetTop;
       if( (Math.abs(xmove-this.position.x) < 3) && (Math.abs(ymove-this.position.y) < 3) ) return;
     }
 

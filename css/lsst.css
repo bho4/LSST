@@ -427,6 +427,27 @@ div#image-pixel-histogram div#histogram-svg-div svg g#black-control circle#inner
     pointer-events: none;
 }
 
+div#image-pixel-histogram div#histogram-svg-div svg g#control circle#outer-control-point {
+    fill-opacity: 0;
+    stroke-opacity: 0;
+    stroke: royalblue;
+    stroke-width: 2;
+    cursor: pointer;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g#control circle#outer-control-point:hover {
+    stroke-opacity: 0.7;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g#control circle#outer-control-point:active {
+    cursor: pointer;
+}
+
+div#image-pixel-histogram div#histogram-svg-div svg g#control circle#inner-control-point {
+    pointer-events: none;
+    fill: royalblue;
+}
+
 div#image-pixel-histogram div#histogram-svg-div svg g g.x.axis.top path,
 div#image-pixel-histogram div#histogram-svg-div svg g g.y.axis.right path {
     stroke: royalblue;
