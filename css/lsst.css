@@ -1,5 +1,7 @@
 body {
     visibility: hidden;
+    
+    /* box-shadow: 0 9px 0px 0px white, 0 -9px 0px 0px white, 12px 0 15px -6px rgba(175, 175, 175, 0.4), -12px 0 15px -6px rgba(175, 175, 175, 0.4); */
 }
 
 .target-viewport-width {

@@ -18,7 +18,8 @@ function init_viewer() {
             navigation: {
                 buttons: ['zoomOut', 'zoomIn'] 
             },
-            winResize: false
+            winResize: false,
+            preload: false
         });
     } else {
         new IIPMooViewer("viewer", {
@@ -28,7 +29,8 @@ function init_viewer() {
             navigation: {
                 buttons: ['zoomOut', 'zoomIn'] 
             },
-            winResize: false
+            winResize: false,
+            preload: false
         });
     }
 }

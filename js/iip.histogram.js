@@ -11,7 +11,6 @@ var IIPhistogram = {
     max: null,
     margin: null,
     curview: null,
-    color: 1,
     
     init: function() {
         // Set the size of SVG container
@@ -35,6 +34,7 @@ var IIPhistogram = {
         LogContrast.init();
         LogContrast.reset();
         LinearLogContrast.init();
+        LinearLinearContrast.init();
         // Initialize Vertical Axis Control
         $($("#" + this.controlpanelid + " #vertical-axis-scale-dropdown ul li")[this.verticalaxis]).addClass("selected");
         $($("#" + this.controlpanelid + " #vertical-axis-scale-dropdown ul li")[this.verticalaxis]).addClass("stripe-btn");
@@ -57,10 +57,17 @@ var IIPhistogram = {
             var idx = $("#" + IIPhistogram.controlpanelid + " #contrast-dropdown ul li").index(this);
             if (idx === 2) {
                 /* Invert */
-                IIPhistogram.invert_color_map();
-                return;
+                if ( $(this).hasClass("selected-no-color") ) {
+                    $(this).removeClass("selected-no-color");
+                    IIPhistogram.reset_contrast();
+                } else {
+                    $(this).addClass("selected-no-color");
+                    IIPhistogram.invert_color_map();
+                    return;
+                }
             } else if (idx === 3) {
                 /* Reset */
+                $("#" + IIPhistogram.controlpanelid + " #contrast-dropdown ul li").removeClass("selected-no-color");
                 IIPhistogram.reset_contrast();
             } else if ($(this).hasClass("selected")) {
                $(this).removeClass("selected");
@@ -136,14 +143,20 @@ var IIPhistogram = {
         this.prepare_data();
         this.set_svg_margin();
         this.draw_histogram();
-        if (this.contrast < 0) {
-            if (Color.color > 0) {
-                Color.apply();
-            }
-        } else {
-            this.apply_contrast();
-            this.contrast_control();
+        
+        this.contrast_control();
+        this.apply_contrast();
+        if (this.contrast < 0 && Color.color > 0) {
+            Color.apply();
         }
+//        if (this.contrast < 0) {
+//            if (Color.color > 0) {
+//                Color.apply();
+//            }
+//        } else {
+//            this.apply_contrast();
+//            this.contrast_control();
+//        }
     },
     
     prepare_data: function() {
@@ -332,13 +345,19 @@ var IIPhistogram = {
     apply_contrast: function() {
         switch (this.contrast) {
             case 0:
-                LinearContrast.apply_contrast();
+                this.apply_contrast_helper(LinearContrast);
+                //LinearContrast.apply_contrast();
                 break;
             case 1:
                 LogContrast.apply_contrast();
                 break;
             case 2:
-                LinearLogContrast.apply_contrast();
+                this.apply_contrast_helper(LinearLogContrast);
+                //LinearLogContrast.apply_contrast();
+                break;
+            case 3:
+                //LinearLinearContrast.apply_contrast();
+                this.apply_contrast_helper(LinearLinearContrast);
                 break;
             default:
                 return;
@@ -349,10 +368,15 @@ var IIPhistogram = {
         switch (this.contrast) {
             case 0:
                 LinearContrast.new();
-                //LinearLogContrast.new();
+                LinearContrast.add_control_points();
+                LinearContrast.svg_callback();
+                LinearContrast.control_point_callback();
+//                LinearContrast.new();
+                LinearLinearContrast.dblclick_callback();
                 break;
             case 1:
                 LogContrast.new();
+                LinearLogContrast.dblclick_callback();
                 break;
             case 2:
                 LinearLogContrast.new();
@@ -360,9 +384,13 @@ var IIPhistogram = {
                 LinearLogContrast.svg_callback();
                 LinearLogContrast.control_point_callback();
                 break;
+            case 3:
+                LinearLinearContrast.new();
+                LinearLinearContrast.add_control_points();
+                LinearLinearContrast.svg_callback();
+                LinearLinearContrast.control_point_callback();
+                break;
         }
-        
-        LinearLogContrast.dblclick_callback();
     },
     
     reset_contrast: function() {
@@ -372,6 +400,12 @@ var IIPhistogram = {
                 break;
             case 1:
                 LogContrast.reset();
+                break;
+            case 2:
+                this.contrast = 1;
+                break;
+            case 3:
+                this.contrast = 0;
                 break;
             default:
                 return;
@@ -612,15 +646,17 @@ var IIPhistogram = {
         var sy = event.pageY - top;
         
         
+        // show pixel value here
+        var imageData = this.curview.getContext('2d').getImageData(sx, sy, 1, 1);
+        var pixel = imageData.data;
+        var val = Color.color > 0 ? pixel[Color.color - 1] : pixel[0];
+        $("#info-div #pixel-value").text(val);
+        
         var copy = $('<canvas/>')[0];
         copy.width = curview.width;
         copy.height = curview.height;
         copy.getContext('2d').drawImage(curview, 0, 0);
-        var imageData = copy.getContext('2d').getImageData(sx, sy, 1, 1);
-        var pixel = imageData.data;
-        
-        var val = Color.color > 0 ? pixel[Color.color - 1] : pixel[0];
-        $("#info-div #pixel-value").text(val);
+
         $("#info-div #pixel-value").addClass("blue");
         var ctx = copy.getContext('2d');
         this.paint(ctx, sx, sy - 1);
@@ -662,5 +698,164 @@ var IIPhistogram = {
     
     trigger_contrast: function(type) {
         $( $("#" + this.controlpanelid + " #contrast-dropdown ul li")[type] ).trigger("click");
+    },
+    
+    
+    add_contrast_tile: function(tile) {
+        var viewer = $("#iip-frame").contents().find("#viewer");
+        
+        var c = document.createElement('canvas');
+        c.width = tile.width;
+        c.height = tile.height;
+        var ctx = c.getContext('2d');
+        ctx.drawImage(tile, 0, 0);
+        var imageData = ctx.getImageData(0, 0, tile.width, tile.height);
+        var pixels = imageData.data;
+        var ContrastObject;
+        switch (this.contrast) {
+            case 0:
+                ContrastObject = LinearContrast;
+                break;
+            case 1:
+                ContrastObject = LogContrast;
+                break;
+            case 2:
+                ContrastObject = LinearLogContrast;
+                break;
+            case 3:
+                ContrastObject = LinearLinearContrast;
+                break;
+        }
+        
+        if (this.contrast > -1) {
+            Color.change_color(pixels, ContrastObject.pvTopi);
+        } else {
+            Color.change_color_nomap(pixels);
+        }
+//            for (var j = 0; j < pixels.length; j+=4) {
+//                pixels[j] = this.pvTopi[ pixels[j] ];
+//                pixels[j+1] = this.pvTopi[ pixels[j+1] ];
+//                pixels[j+2] = this.pvTopi[ pixels[j+2] ];
+//            }
+        ctx.putImageData(imageData, 0, 0);
+        var img = $('<img>')[0];
+        img.id = "ct" + tile.id;
+        img.className = "contrast-tile";
+        img.style.position = "absolute";
+        img.style.left = tile.style.left;
+        img.style.top = tile.style.top;
+        //img.style.display = "none";
+        img.onload = function() {
+            
+        };
+        img.src = c.toDataURL();
+        $("div.canvas", viewer).append(img);
+    },
+    
+    apply_contrast_helper: function(ContrastObject) {
+        var viewer = $("#iip-frame").contents().find("#viewer");
+        var loadBarC = $("div.contrastLoadBarContainer", viewer)[0];
+        var lB = loadBarC.getElement('div.loadBar');
+        lB.setStyle( 'width', 0 );
+        lB.set( 'html', '&nbsp;');
+        loadBarC.setStyles({
+            visibility: 'visible',
+            opacity: 0.85
+        });
+        
+        var tiles = $("img.tile", viewer);
+        if ($("img.contrast-tile", viewer).length > 0) {
+            $("img.contrast-tile", viewer).addClass("toBeRemoved");
+        }
+        
+        var imageLoaded = 0;
+        for (var i = 0; i < tiles.length; i++) {
+            var c = document.createElement('canvas');
+            c.width = tiles[i].width;
+            c.height = tiles[i].height;
+            var ctx = c.getContext('2d');
+            ctx.drawImage(tiles[i], 0, 0);
+            var imageData = ctx.getImageData(0, 0, tiles[i].width, tiles[i].height);
+            var pixels = imageData.data;
+            Color.change_color(pixels, ContrastObject.pvTopi);
+//            for (var j = 0; j < pixels.length; j+=4) {
+//                pixels[j] = this.pvTopi[ pixels[j] ];
+//                pixels[j+1] = this.pvTopi[ pixels[j+1] ];
+//                pixels[j+2] = this.pvTopi[ pixels[j+2] ];
+//            }
+            ctx.putImageData(imageData, 0, 0);
+            var img = $('<img>')[0];
+            img.className = "contrast-tile";
+            img.style.position = "absolute";
+            img.style.left = tiles[i].style.left;
+            img.style.top = tiles[i].style.top;
+            img.style.display = "none";
+            img.onload = function() {
+                imageLoaded++;
+                
+                var w = (imageLoaded / tiles.length) * IIPV.navigation.options.loadBarWidth;
+                var loadBarContainer = $("div.contrastLoadBarContainer", viewer)[0];
+                var loadBar = loadBarContainer.getElement('div.loadBar');
+                loadBar.setStyle( 'width', w );
+                // Display the % in the progress bar
+                loadBar.set( 'html', ' Contrast&nbsp;:&nbsp;' + Math.round(imageLoaded / tiles.length*100) + '%' );
+
+                if( loadBarContainer.style.opacity != '0.85' ){
+                  loadBarContainer.setStyles({
+                    visibility: 'visible',
+                    opacity: 0.85
+                  });
+                }
+                
+                if (imageLoaded === tiles.length) {
+                    $("img.contrast-tile.toBeRemoved", viewer).remove();
+                    $("img.contrast-tile", viewer).show();
+                    loadBarContainer.fade('out');
+                }
+            };
+            img.src = c.toDataURL();
+            $("div.canvas", viewer).append(img);
+        }
+        
+        ContrastObject.curview = $("<canvas/>")[0];
+        ContrastObject.curview.width = IIPhistogram.curview.width;
+        ContrastObject.curview.height = IIPhistogram.curview.height;
+        var ctx = ContrastObject.curview.getContext("2d");
+        var imageDataNew = ctx.createImageData(ContrastObject.curview.width, ContrastObject.curview.height);
+        var pixels = imageDataNew.data;
+        var copyFrom = IIPhistogram.curview.getContext("2d").getImageData(0, 0, ContrastObject.curview.width, ContrastObject.curview.height).data;
+        Color.change_color(pixels, ContrastObject.pvTopi, copyFrom);
+//        for (var k = 0; k < pixels.length; k+=4) {
+//            switch (IIPhistogram.color) {
+//                case 0:
+//                    pixels[k] = this.pvTopi[ copyFrom[k] ];
+//                    pixels[k+1] = this.pvTopi[ copyFrom[k+1] ];
+//                    pixels[k+2] = this.pvTopi[ copyFrom[k+2] ];
+//                    pixels[k+3] = 255;
+//                    break;
+//                case 1:
+//                    pixels[k] = this.pvTopi[ copyFrom[k] ];
+//                    pixels[k+1] = 0;
+//                    pixels[k+2] = 0;
+//                    pixels[k+3] = 255;
+//                    break;
+//            }
+//            
+//        }
+        ctx.putImageData(imageDataNew, 0, 0);
+        
+        $("img.contrast-tile", viewer).mousemove(function(event) {
+            IIPhistogram.magnify(event, ContrastObject.curview);
+        });
+        
+        $("img.contrast-tile", viewer).mouseleave(function() {
+            $("#info-div #pixel-value").text("");
+            $("#info-div #pixel-value").removeClass("blue");
+            var magnifier = $("div#magnifier canvas")[0];
+            var w = magnifier.width;
+            var h = magnifier.height;
+            var ctx = magnifier.getContext('2d');
+            ctx.clearRect(0, 0, w, h);
+        });
     }
 };

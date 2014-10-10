@@ -270,7 +270,8 @@ var NavPan = {
                     /* color */
                     if (second_row === 13) {
                         /* invert colormap */
-                        IIPhistogram.invert_color_map();
+                        //IIPhistogram.invert_color_map();
+                        $( $("#" + IIPhistogram.controlpanelid + " #contrast-dropdown ul li")[2] ).trigger("click");
                     } else if (IIPhistogram.contrast < 0) {
                         if ($(this).hasClass("selected")) {
                             $(this).removeClass("selected");

@@ -4,6 +4,7 @@ var Color = {
     remove: function() {
         var viewer = $("#iip-frame").contents().find("#viewer");
         $("img.contrast-tile", viewer).remove();
+        $("img.tile", viewer).show();
     },
     
     apply: function() {
@@ -71,8 +72,12 @@ var Color = {
         var map = null;
         if (IIPhistogram.contrast === 0) {
             map = LinearContrast.pvTopi;
-        } else {
+        } else if (IIPhistogram.contrast === 1){
             map = LogContrast.pvTopi;
+        } else if (IIPhistogram.contrast === 2) {
+            map = LinearLogContrast.pvTopi;
+        } else {
+            map = LinearLinearContrast.pvTopi;
         }
         
         var viewer = $("#iip-frame").contents().find("#viewer");

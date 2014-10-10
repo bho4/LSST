@@ -360,21 +360,21 @@ var IIPMooViewer = new Class({
 
       }
     }
-
     this.nTilesLoaded = 0;
     this.nTilesToLoad = ntiles * this.images.length;
 
     // Delete the tiles from our old image mosaic which are not in our new list of tiles
     this.canvas.get('morph').cancel();
     var _this = this;
-    this.canvas.getChildren('img').each( function(el){
+    this.canvas.getChildren('img.tile').each( function(el){
       var index = parseInt(el.retrieve('tile'));
       if( !newTiles.contains(index) ){
+          $($("img#ct" + el.id)[0]).remove();
         el.destroy();
 	_this.tiles.erase(index);
       }
     });
-
+    
     map.sort(function s(a,b){return a.n - b.n;});
 
     for( var m=0; m<ntiles; m++ ){
@@ -427,7 +427,14 @@ var IIPMooViewer = new Class({
 	tile.addEvents({
 	  'load': function(tile,id){
 	     if( this.effects ) tile.setStyle('opacity',1);
-	     tile.removeClass('hidden');
+             
+             if (parent.IIPhistogram.contrast > -1 || parent.Color.color > 0) {
+                 parent.IIPhistogram.add_contrast_tile(tile);
+             } else {
+                 tile.removeClass('hidden');
+             }
+	     //tile.removeClass('hidden');
+             
 	     if(!(tile.width&&tile.height)){
 	       tile.fireEvent('error');
 	       return;

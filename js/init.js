@@ -58,11 +58,11 @@ $(document).ready(function() {
         $("div#left-div").toggleClass("three");
         $("div#right-div").toggleClass("seven");
         IIPhistogram.width = $("div#right-div").width();
-        LinearContrast.init();
-        LinearContrast.reset();
+        LinearContrast.fit();
         LogContrast.init();
         LogContrast.reset();
-        LinearLogContrast.reset();
+        LinearLogContrast.fit();
+        LinearLinearContrast.fit();
         FileOpen.change_image(DEFAULT_IMAGE);
     });            
 });

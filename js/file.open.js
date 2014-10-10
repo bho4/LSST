@@ -100,6 +100,8 @@ var FileOpen = {
             $("#file-open-div #upload-image-btn").addClass("disabled");
             
             var url = $('#file-open-div input[name="image-url"]').val();
+//            url = url.substring(0, url.indexOf('?'));
+//            console.log(url);
             
             if (FileOpen.is_url(url)) {
                 $("#panner .navcontainer").fadeOut(1000);
@@ -109,6 +111,7 @@ var FileOpen = {
                         url: "php/upload.image.php",
                         data: {url: url},
                     }).success(function(imageName) {
+                        console.log(imageName);
                         FileOpen.change_image(imageName);
                         if ( $("#right-div #file-open-div").css("display") !== "none") {
                             FileOpen.html();

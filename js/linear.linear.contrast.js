@@ -1,4 +1,4 @@
-var LinearLogContrast = {
+var LinearLinearContrast = {
     margin: null,
     w: 0,
     h: 0,
@@ -7,8 +7,8 @@ var LinearLogContrast = {
     line: null,
     values: [],
     intensities: [],
-    pvToPIa: 0,
-    pvToPIb: 0,
+    pvToPIa: [],
+    pvToPIb: [],
     trans: null,
     xs: [],
     ys: [],
@@ -17,19 +17,10 @@ var LinearLogContrast = {
     curview: null,
     
     init: function() {
-        this.values.push(0);
-        this.values.push(128);
-        this.values.push(255);
-        
-        this.intensities.push(0);
-        this.intensities.push(128);
-        this.intensities.push(255);
-        
-        this.contruct_linear_contrast_function();
-        
         this.margin = IIPhistogram.margins[1];
         this.w = IIPhistogram.width - this.margin.left - this.margin.right;
         this.h = IIPhistogram.height - this.margin.top - this.margin.bottom;
+        
         this.fx = 
         d3.scale.linear()
             .domain([0, 255])
@@ -41,20 +32,13 @@ var LinearLogContrast = {
             .range([this.h, 0]);
     
         this.line = d3.svg.line()
-            .x(function(d) { return LinearLogContrast.fx(d[0]); })
-            .y(function(d) { return LinearLogContrast.fy(d[1]); });
+            .x(function(d) { return LinearLinearContrast.fx(d[0]); })
+            .y(function(d) { return LinearLinearContrast.fy(d[1]); });
     
         this.trans = "translate(" + this.margin.left + "," + this.margin.top + ")";
-        
-        this.xs.push(0);
-        this.xs.push(0);
-        this.xs.push(this.w);
-        
-        this.ys.push(this.h);
-        this.ys.push(0);
-        this.ys.push(0);
     },
     
+    // Called in init.js
     fit: function() {
         this.w = IIPhistogram.width - this.margin.left - this.margin.right;
         this.fx = 
@@ -65,52 +49,42 @@ var LinearLogContrast = {
         this.xs[0] = Math.round( this.values[0] / 255 * this.w );
         this.xs[1] = Math.round( this.values[1] / 255 * this.w );
         this.xs[2] = Math.round( this.values[2] / 255 * this.w );
-        
     },
     
     new: function() {
-        
         var svg = 
         d3.select("#" + IIPhistogram.svgid + " svg");
-
+        
         // Draw the contrast function
         svg
         .append("g")
-            .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")" )
+            .attr("transform", this.trans)
         .append("path")
-            .datum(d3.range(256).map(function(i) { 
-                if (i <= LinearLogContrast.values[0]) {
-                    return [i, LinearLogContrast.intensities[0]];
-                } else if (i === LinearLogContrast.values[1]) {
-                    return [i, LinearLogContrast.intensities[1]];
-                } else if (i > LinearLogContrast.values[0] && i < LinearLogContrast.values[1]){
-                    return [i, LinearLogContrast.contrast_linear_function(i)]; 
-                } else if (i >= LinearLogContrast.values[2]) {
-                    return [i, LinearLogContrast.intensities[2]];
+            .datum(d3.range(256).map(function(i) {
+                var _this = LinearLinearContrast;
+                if (i <= _this.values[0]) {
+                    return [i, _this.intensities[0]];
+                } else if (i === _this.values[1]) {
+                    return [i, _this.intensities[1]];
+                } else if (i > _this.values[0] && i < _this.values[1]){
+                    return [i, _this.contrast_linear_function(i, 0)]; 
+                } else if (i >= _this.values[2]) {
+                    return [i, _this.intensities[2]];
                 } else {
-                    return [i, LinearLogContrast.contrast_log_function(i)]; 
+                    return [i, _this.contrast_linear_function(i, 1)]; 
                 }
             }))
             .attr("class", "line")
             .attr("d", this.line);
     },
     
-    contruct_linear_contrast_function: function() {
-        this.pvToPIa = (this.intensities[1]- this.intensities[0]) / (this.values[1]- this.values[0]);
-        this.pvToPIb = this.intensities[1] - this.pvToPIa * this.values[1];
+    contruct_linear_contrast_function: function(i) {
+        this.pvToPIa[i] = (this.intensities[i+1]- this.intensities[i]) / (this.values[i+1]- this.values[i]);
+        this.pvToPIb[i] = this.intensities[i+1] - this.pvToPIa[i] * this.values[i+1];
     },
     
-    contrast_linear_function: function(x) {
-        return this.pvToPIa * x + this.pvToPIb;
-    },
-    
-    contrast_log_function: function(x) {
-        var span = this.values[2] - this.values[1];
-        var xmin = this.values[1];
-        var xmax = this.values[2];
-        var ymin = this.intensities[1];
-        var ymax = this.intensities[2];
-        return ( (ymax - ymin) / log10(span+1) ) * log10( span * (x - xmin) / (xmax - xmin) + 1 ) + ymin;
+    contrast_linear_function: function(x, i) {
+        return this.pvToPIa[i] * x + this.pvToPIb[i];
     },
     
     add_control_points: function() {
@@ -176,7 +150,7 @@ var LinearLogContrast = {
         this.values[0] = value;
         x = Math.round( value / 255 * this.w );
         this.set_control_point_attrs(0, x, y);
-        this.contruct_linear_contrast_function();
+        this.contruct_linear_contrast_function(0);
         IIPhistogram.contrast_display(this.values[0], this.intensities[0]);
         return false;
     },
@@ -187,10 +161,9 @@ var LinearLogContrast = {
         value = value >= this.values[2] ? this.values[2] - 1: value;
         this.values[1] = value;
         x = Math.round( value / 255 * this.w );
-//        if (value <= this.values[0] || value >= this.values[2])
-//            return true;
         this.set_control_point_attrs(1, x, y);
-        this.contruct_linear_contrast_function();
+        this.contruct_linear_contrast_function(0);
+        this.contruct_linear_contrast_function(1);
         IIPhistogram.contrast_display(this.values[1], this.intensities[1]);
         return false;
     },
@@ -201,6 +174,7 @@ var LinearLogContrast = {
         this.values[2] = value;
         x = Math.round( value / 255 * this.w );
         this.set_control_point_attrs(2, x, y);
+        this.contruct_linear_contrast_function(1);
         IIPhistogram.contrast_display(this.values[2], this.intensities[2]);
         return false;
     },
@@ -208,34 +182,33 @@ var LinearLogContrast = {
     svg_callback: function() {
         $("#" + IIPhistogram.svgid + " svg")
             .mousemove(function(e) {
-                if (LinearLogContrast.controlPointSelected < 0)
+                var _this = LinearLinearContrast;
+                if (_this.controlPointSelected < 0)
                     return;
                 
-                var offsetX = typeof e.offsetX === "undefined" ? LinearLogContrast.get_offsetX(e.pageX) : e.offsetX;
-                var offsetY = typeof e.offsetY === "undefined" ? LinearLogContrast.get_offsetY(e.pageY) : e.offsetY;
+                var offsetX = typeof e.offsetX === "undefined" ? _this.get_offsetX(e.pageX) : e.offsetX;
+                var offsetY = typeof e.offsetY === "undefined" ? _this.get_offsetY(e.pageY) : e.offsetY;
                 
-                var x = offsetX - LinearLogContrast.margin.left;
-                var y = offsetY - LinearLogContrast.margin.top;
+                var x = offsetX - _this.margin.left;
+                var y = offsetY - _this.margin.top;
                 
                 x = x < 0 ? 0 : x;
-                x = x > LinearLogContrast.w ? LinearLogContrast.w : x;
+                x = x > _this.w ? _this.w : x;
                 
                 y = y < 0 ? 0 : y;
-                y = y > LinearLogContrast.h ? LinearLogContrast.h : y;
-//                if (!LinearLogContrast.is_valid_x_y(x, y))
-//                    return;
+                y = y > _this.h ? _this.h : y;
                 
-                switch (LinearLogContrast.controlPointSelected) {
+                switch (_this.controlPointSelected) {
                     case 0:
-                        if ( LinearLogContrast.move_black_control_point(x, y) )
+                        if ( _this.move_black_control_point(x, y) )
                             return;
                         break;
                     case 1:
-                        if ( LinearLogContrast.move_middle_control_point(x, y) )
+                        if ( _this.move_middle_control_point(x, y) )
                             return;
                         break;
                     case 2:
-                        if ( LinearLogContrast.move_white_control_point(x, y) )
+                        if ( _this.move_white_control_point(x, y) )
                             return;
                         break;
                 }
@@ -245,21 +218,21 @@ var LinearLogContrast = {
                 $("#" + IIPhistogram.svgid + " svg g#black-control").remove();
                 $("#" + IIPhistogram.svgid + " svg g#control").remove();
                 $("#" + IIPhistogram.svgid + " svg g#white-control").remove();
-                LinearLogContrast.new();
-                LinearLogContrast.add_control_points();
+                _this.new();
+                _this.add_control_points();
                 
                 
             })
             .mouseup(function() {
-                if (LinearLogContrast.controlPointSelected >= 0)
+                if (LinearLinearContrast.controlPointSelected >= 0)
                     IIPhistogram.apply_contrast();
-                LinearLogContrast.controlPointSelected = -1;
-                LinearLogContrast.control_point_callback();
+                LinearLinearContrast.controlPointSelected = -1;
+                LinearLinearContrast.control_point_callback();
             })
             .mousestop(function() {
-                if (LinearLogContrast.controlPointSelected < 0)
+                if (LinearLinearContrast.controlPointSelected < 0)
                     return;
-                LinearLogContrast.map_pv_to_pi();
+                LinearLinearContrast.map_pv_to_pi();
                 IIPhistogram.apply_contrast();
             });
     },
@@ -267,11 +240,11 @@ var LinearLogContrast = {
     control_point_callback: function() {
         
         $("#outer-black-control-point")
-            .mousedown(function(e) {
-                LinearLogContrast.controlPointSelected = 0;
+            .mousedown(function() {
+                LinearLinearContrast.controlPointSelected = 0;
             })
             .mouseenter(function() {
-                IIPhistogram.contrast_display(LinearLogContrast.values[0], LinearLogContrast.intensities[0]);
+                IIPhistogram.contrast_display(LinearLinearContrast.values[0], LinearLinearContrast.intensities[0]);
                 return;
             })
             .mouseleave(function() {
@@ -280,11 +253,11 @@ var LinearLogContrast = {
             });
             
         $("#outer-control-point")
-            .mousedown(function(e) {
-                LinearLogContrast.controlPointSelected = 1;
+            .mousedown(function() {
+                LinearLinearContrast.controlPointSelected = 1;
             })
             .mouseenter(function() {
-                IIPhistogram.contrast_display(LinearLogContrast.values[1], LinearLogContrast.intensities[1]);
+                IIPhistogram.contrast_display(LinearLinearContrast.values[1], LinearLinearContrast.intensities[1]);
                 return;
             })
             .mouseleave(function() {
@@ -293,11 +266,11 @@ var LinearLogContrast = {
             });
             
         $("#outer-white-control-point")
-            .mousedown(function(e) {
-                LinearLogContrast.controlPointSelected = 2;
+            .mousedown(function() {
+                LinearLinearContrast.controlPointSelected = 2;
             })
             .mouseenter(function() {
-                IIPhistogram.contrast_display(LinearLogContrast.values[2], LinearLogContrast.intensities[2]);
+                IIPhistogram.contrast_display(LinearLinearContrast.values[2], LinearLinearContrast.intensities[2]);
                 return;
             })
             .mouseleave(function() {
@@ -340,8 +313,6 @@ var LinearLogContrast = {
         this.values[2] = wv;
         this.intensities[2] = wi;
         
-        this.contruct_linear_contrast_function();
-        
         var bx = Math.round( bv / 255 * this.w );
         var by = Math.round( (255 - bi) / 255 * this.h);
         var wx = Math.round( wv / 255 * this.w );
@@ -360,9 +331,9 @@ var LinearLogContrast = {
             } else if (i >= this.values[2]) {
                 this.pvTopi[i] = this.intensities[2];
             } else if (i > this.values[0] && i < this.values[1]) {
-                this.pvTopi[i] = Math.round( this.contrast_linear_function(i) );
+                this.pvTopi[i] = Math.round( this.contrast_linear_function(i, 0) );
             } else if (i > this.values[1] && i < this.values[2]) {
-                this.pvTopi[i] = Math.round( this.contrast_log_function(i) );
+                this.pvTopi[i] = Math.round( this.contrast_linear_function(i, 1) );
             } else {
                 this.pvTopi[i] = this.intensities[1];
             }
@@ -371,11 +342,11 @@ var LinearLogContrast = {
     
     dblclick_callback: function() {
         $("#" + IIPhistogram.svgid + " svg").dblclick(function(e) {
-            var offsetX = typeof e.offsetX === "undefined" ? LinearLogContrast.get_offsetX(e.pageX) : e.offsetX;
-            var offsetY = typeof e.offsetY === "undefined" ? LinearLogContrast.get_offsetY(e.pageY) : e.offsetY;
+            var offsetX = typeof e.offsetX === "undefined" ? LinearLinearContrast.get_offsetX(e.pageX) : e.offsetX;
+            var offsetY = typeof e.offsetY === "undefined" ? LinearLinearContrast.get_offsetY(e.pageY) : e.offsetY;
             
-            var x = offsetX - LinearLogContrast.margin.left;
-            var value = Math.round( x / LinearLogContrast.w * 256 );
+            var x = offsetX - LinearLinearContrast.margin.left;
+            var value = Math.round( x / LinearLinearContrast.w * 256 );
             
             if (IIPhistogram.contrast === 0) {
                 if (value <= LinearContrast.blackValue || value >= LinearContrast.whiteValue)
@@ -394,18 +365,21 @@ var LinearLogContrast = {
     //        console.log(offsetX);
     //        console.log(e.offsetY);
     //        console.log(offsetY);
+            LinearLinearContrast.set_mid_control_point(offsetX, offsetY);
+            LinearLinearContrast.set_end_control_points(LinearContrast.values[0], LinearContrast.intensities[0], LinearContrast.values[1], LinearContrast.intensities[1]);
+//            IIPhistogram.contrast === 0 ? LinearLinearContrast.set_end_control_points(LinearContrast.blackValue, LinearContrast.blackIntensity, LinearContrast.whiteValue, LinearContrast.whiteIntensity) 
+//                                        : LinearLinearContrast.set_end_control_points(LogContrast.blackValue, LogContrast.blackIntensity, LogContrast.whiteValue, LogContrast.whiteIntensity);
+            
+            LinearLinearContrast.contruct_linear_contrast_function(0);
+            LinearLinearContrast.contruct_linear_contrast_function(1);
+            LinearLinearContrast.new();
+            LinearLinearContrast.add_control_points();
+            LinearLinearContrast.svg_callback();
+            LinearLinearContrast.control_point_callback();
+            LinearLinearContrast.map_pv_to_pi();
+            //LinearLinearContrast.apply_contrast();
 
-            LinearLogContrast.set_mid_control_point(offsetX, offsetY);
-            IIPhistogram.contrast === 0 ? LinearLogContrast.set_end_control_points(LinearContrast.blackValue, LinearContrast.blackIntensity, LinearContrast.whiteValue, LinearContrast.whiteIntensity) 
-                                        : LinearLogContrast.set_end_control_points(LogContrast.blackValue, LogContrast.blackIntensity, LogContrast.whiteValue, LogContrast.whiteIntensity);
-            LinearLogContrast.new();
-            LinearLogContrast.add_control_points();
-            LinearLogContrast.svg_callback();
-            LinearLogContrast.control_point_callback();
-            LinearLogContrast.map_pv_to_pi();
-            //LinearLogContrast.apply_contrast();
-
-            IIPhistogram.contrast = 2;
+            IIPhistogram.contrast = 3;
             
             IIPhistogram.apply_contrast();
 
